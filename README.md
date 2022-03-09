@@ -14,3 +14,6 @@ Tutorial is in `kubernetes tutorial` folder.
 - add banner to README.
 - reformat .gitignore.
 - add content.
+  - jenkins
+  - argocd
+  - istio
