@@ -74,4 +74,96 @@ CRD for Istio Ingress Gateway is `kind: Gateway`.
 
 ![](assets/istio_traffic_flow.png)
 
+### Download Istio & Configure Istioctl
+
+*Note: Istioctl needs a minimum of 6 CPUs & 8192 memory.*
+
+Install [Istioctl](https://istio.io/latest/docs/setup/install/istioctl/) & add it to path.
+
+### Install Istio in Minikube Cluster
+
+Run in default namespace. *Note: Run `kubectl get ns`.*
+
+      istioctl install
+
+This adds `istio-system` to namespace & adds 2 Istio pods inside it (Istiod is 1 of them).
+
+### Deploy Microservice Application
+
+Microservice application used here is [Online Boutique](https://github.com/GoogleCloudPlatform/microservices-demo) by Google Cloud Platform.
+
+1. Copy [kubernetes-manifests.yaml](https://github.com/GoogleCloudPlatform/microservices-demo/blob/main/release/kubernetes-manifests.yaml) into a project file.
+2. Start the microservice in default namespace.
+   ```
+   kubectl apply -f kubernetes-manifests.yaml
+   ```
+   - Run the following to check if all pods have started.
+      ```
+      kubectl get pod
+      ```
+
+When running the above command, notice that there is only 1 container running inside a pod. Note that <mark>Envoy proxies were NOT injected</mark>!
+
+**Configure Automatic Envoy Proxy Injection**
+
+This can be configured via namespace labels. To view namespace labels, run the following: `kubectl get ns <namespace> --show-labels`
+
+      kubectl get ns default --show-labels
+
+1. Run the following command to enable automatic Envoy proxy injection:
+   ```
+   kubectl label namespace default istio-injection=enabled
+   ```
+   - `istio-injection` tells Istio to enable it.
+2. Rerun the pods.
+   - Delete the current deployment.
+      ```
+      kubectl delete -f kubernetes-manifests.yaml
+      ```
+   - Start the microservice.
+      ```
+      kubectl apply -f kubernetes-manifests.yaml
+      ```
+   - *Note: We do not have to modify the existing Kubernetes files. Istio auto injects Envoy proxies just by enabling the option.*
+3. View any pod configuration from the application.
+   ```
+   kubectl describe pod <pod_name>
+   ```
+   - *Note: There is a new `istio-init` inside `Init Containers`. This is automatically injected by Istio.*
+
+### Istio Addons for Monitoring & Data Visualization
+
+In [Istio Features](#istio-features), Istio collects telemetry.
+
+1. Navigate to Istio installation folder.
+2. Run the following command. This installs Grafana, Jaeger, Kiali, & Prometheus.
+   ```
+   kubectl apply -f samples/addons
+   ```
+3. View the services running in Istio.
+   ```
+   kubectl get svc -n istio-system
+   ```
+   - **Grafana**: Visualization tool.
+   - **Prometheus**: Monitoring tool.
+   - **Jaeger**: Trace microservice requests.
+   - **Zipkin**: Jaeger alternative.
+   - **Kiali**: Data visualization tool (including monitoring & tracing).   
+
+### Kiali: Service Mesh Management for Istio
+
+1. Run Kiali. This configures port forwarding for the internal service that can't be accessed externally. This means that we can run it locally on port 20001.
+   ```
+   kubectl port-forward svc/kiali -n istio-system 20001
+   ```
+2. Navigate to `localhost:20001`.
+3. The `Graph` section visualizes the network of microservices. Kiali has `Traffic`, `Inbound Metrics`, & `Traces` too. 
+
+### Labels in Pods for Istio
+
+For visualization to work, Istio <mark>requires the `app` label</mark>. This `app` label has a special meaning in Istio.
+
 ## Credits
+
+- [Techworld with Nana](https://twitter.com/Njuchi_)
+- prod by blvnk.
