@@ -8,6 +8,10 @@ Tutorial is in `docker tutorial` folder.
 
 Tutorial is in `kubernetes tutorial` folder.
 
+### [Istio](istio%20tutorial/README.md)
+
+Tutorial is in `istio tutorial` folder.
+
 ## TODO:
 
 - reformat README.
