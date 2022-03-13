@@ -306,7 +306,52 @@ _Note: Secret must be in same Namespace._
 
 Helm is a package manager of K8s, similar to apt, yum, or brew. Helm packages YAML files & distributes them in public & private repos.
 
-TODO: Expand more about Helm.
+**Helm Chart**: Bundle of YAML files.
+
+**Templating Engine**
+
+1. Helm defines a common blueprint for YAML files.
+2. Use dynamic values to replace placeholders.
+   - Example of a template.
+     ```yaml
+     apiVersion: v1
+     kind: Pod
+     metadata:
+       name: { { .Values.name } }
+     spec:
+       containers:
+         - name: { { .Values.container.name } }
+           image: { { .Values.container.image } }
+           port: { { .Values.container.port } }
+     ```
+   - The values are defined in `values.yaml` file.
+     ```yaml
+     name: myapp
+     container:
+       name: my-app-container
+       image: my-app-image
+       port: 9001
+     ```
+
+**Helm Chart Structure**
+
+![](assets/helm_dir.png)
+
+`Chart.yaml`: Meta info about chart (eg name, dependencies, version, etc).
+`values.yaml`: Values for template files. Can be overridden.
+`charts/`: Chart dependencies.
+`templates/`: Actual template files.
+
+**Deploy Helm Files**
+
+- Normal deployment.
+   ```
+   helm install <chartname>
+   ```
+- Use alternate values.
+   ```
+   helm install --values=<values_v2.yaml> <chartname>
+   ```
 
 ### K8s Volumes
 
