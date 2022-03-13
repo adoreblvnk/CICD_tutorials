@@ -198,4 +198,4 @@ docker run my-app:1.0
 ## Credits
 
 - [Techworld with Nana](https://twitter.com/Njuchi_)
-- blvnk
+- prod by blvnk.

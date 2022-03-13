@@ -170,7 +170,7 @@ Creates Deployment. If it exists, it updates Deployment. Config Files can be use
 
     kubectl get deployment [deployment_name] -o yaml
 
-Gets entire configuration of Deployment & outut is in yaml format.
+Gets entire configuration of Deployment & output is in YAML format.
 
 ### Deploying MongoDB & MongoExpress _[Practical]_
 
@@ -251,7 +251,7 @@ Namespace Characteristics:
 
 **Without Ingress**: External Request → External Service → Pod
 
-**With Ingress**: External Requst → Ingress Controller → Ingress Internal Service → Internal Service → Pod
+**With Ingress**: External Request → Ingress Controller → Ingress Internal Service → Internal Service → Pod
 
 _Note: Ingress has no NodePort._
 
@@ -304,7 +304,7 @@ _Note: Secret must be in same Namespace._
 
 ### Helm
 
-Helm is a package manager of K8s.
+Helm is a package manager of K8s, similar to apt, yum, or brew. Helm packages YAML files & distributes them in public & private repos.
 
 TODO: Expand more about Helm.
 
@@ -313,7 +313,7 @@ TODO: Expand more about Helm.
 3 Components of Kubernetes Storage:
 
 1. Persistent Volume
-   - Is a cluster resource & created via yaml file.
+   - Is a cluster resource & created via YAML file.
    - It makes (physical) storage available to the cluster.
    - If a Pod requires it, PVs must exist <mark>before</mark> applying Deployment.
    - Example file: [persistent_volume.yaml](Volumes/persistent_volumes.yaml)
@@ -343,7 +343,7 @@ Deployment for stateless applications, StatefulSet for stateful applications.
 |                                            | can't be created / deleted at same time |
 |        identical & interchangeable         |     replica Pods are not identical      |
 | created in random order with random hashes |       can't be randomly addressed       |
-|  1 service that load baalnces to any Pod   |
+|  1 service that load balances to any Pod   |                                         |
 
 **Pod Identity**
 

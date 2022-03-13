@@ -20,4 +20,3 @@ Tutorial is in `istio tutorial` folder.
 - add content.
   - jenkins
   - argocd
-  - istio
