@@ -25,7 +25,7 @@ It is recommended to start with Docker, then Kubernetes.
 - Learn K8s volumes for persistent storage.
 - Learn about K8s StatefulSet for stateless applications. 
 
-### [Istio](istio%20tutorial/README.md)
+### [Istio](istio%20tutorial/README.md) (w/ Practical)
 
 - Service mesh with sidecar pattern.
 - Istio features.
