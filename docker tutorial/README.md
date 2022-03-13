@@ -4,7 +4,7 @@
 
 Learning Docker with NodeJS from [Docker Tutorial for Beginners](https://youtu.be/3c-iBn73dDE). Forked from Nanuchi's [Docker demo](https://gitlab.com/nanuchi/techworld-js-docker-demo-app).
 
-## About
+## Content
 
 Deploying a NodeJS web app with MongoDB onto Docker with persistence.
 

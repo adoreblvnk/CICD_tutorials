@@ -1,6 +1,6 @@
 # istio tutorial
 
-Learning Istio from TechWorldWithNana's tutorials. Taken from [Istio Summary](https://youtu.be/16fgzklcF7Y) & [Istio Setup in Kubernetes](https://youtu.be/voAyroDb6xk).
+Learning Istio from [TechWorld with Nana](https://www.youtube.com/c/TechWorldwithNana)'s tutorials. Taken from [Istio Summary](https://youtu.be/16fgzklcF7Y) & [Istio Setup in Kubernetes](https://youtu.be/voAyroDb6xk).
 
 ## Content
 
