@@ -11,6 +11,7 @@ It is recommended to start with Docker, then Kubernetes.
 - Learn basic Docker commands.
 - Deploy MongoDB with MongoExpress frontend.
 - Learn how to create & configure DockerCompose & Dockerfiles.
+- Bonus: Docker tips.
 
 ### [Kubernetes](kubernetes%20tutorial/README.md) (w/ Practical)
 
@@ -33,6 +34,10 @@ It is recommended to start with Docker, then Kubernetes.
   - Configure automated Envoy proxy injection via Istio.
 - Learn about Istio addons (Grafana, Prometheus, Jaeger, Zipkin, Kiali) for monitoring & data visualization.
   - Use Kiali for deployed application.
+
+### [Jenkins](jenkins%20tutorial/README.md) (w/ Practical)
+
+- 
 
 ## TODO:
 

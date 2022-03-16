@@ -1,4 +1,5 @@
 .vscode/
+*.code-workspace
 
 # Docker tutorial
 # docker*tutorial/app/node_modules
