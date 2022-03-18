@@ -401,6 +401,10 @@ Only Master Pod can read & write, & worker Pods can <mark>only</mark> read. Work
 1. Predictable Pod Name
 2. Fixed Individual DNS Name
 
+### Tips
+
+
+
 ## Credits
 
 - prod by blvnk.
