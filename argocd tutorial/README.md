@@ -1,5 +1,0 @@
-# jenkins tutorial
-
-## Content
-
-## Credits
