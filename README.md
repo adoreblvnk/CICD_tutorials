@@ -46,6 +46,7 @@ It is recommended to start with Docker, then Kubernetes.
 - add content.
   - jenkins
   - argocd
+  - unit testing
 
 ## Credits
 
