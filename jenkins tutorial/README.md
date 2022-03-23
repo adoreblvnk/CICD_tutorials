@@ -24,6 +24,18 @@ pipeline {
         SERVER_CREDENTIALS = credentials("server_credentials")
     }
 
+    // Tools
+    tools {
+        go "go1.15.7"
+    }
+
+    // Parameters
+    parameters {
+        string(name: "VERSION", defaultValue: "", description: "version to deploy on production")
+        choice(name: "VERSION", choices: ["1.1.0", "1.2.0", "1.3.0"], description: "you mom")
+        booleanParam(name: "executeTest", defaultValue: true, description: "")
+    }
+
     stages {
         stage("build") {
 
@@ -36,6 +48,28 @@ pipeline {
 
             steps {
                 echo "building application version ${NEW_VERSION} . . ."
+            }
+        }
+        stage("test") {
+
+            // Parameters
+            when {
+                expression {
+                    params.executeTest
+                }
+            }
+
+            steps {
+
+                // Groovy Script
+                script {
+                    def youMom = "/path/to/you/mom"
+                    if (youMom) {
+                        println "youMom exists"
+                        echo "testing application version ${VERSION} . . ."
+                    }
+                }
+
             }
         }
         stage("deploy") {
@@ -119,7 +153,7 @@ environment {
 
 **Defining Credentials by using Wrappers**
 
-If credentials are not desired to be stored as env vars, it can be declared by using wrappers. Use `withCredentials()` to bind credentials to variables. The function takes in an object as a parameter (defined with `[]`). The object is the function for the type of credential (eg the function `usernamePassword()` is defined in Jenkins GUI when creating credentials). 
+If credentials are not desired to be stored as env vars, it can be declared by using wrappers. Use `withCredentials()` to bind credentials to variables. The function takes in an object as a parameter (defined with `[]`). The object is the function for the type of credential (eg the function `usernamePassword()` is defined in Jenkins GUI when creating credentials).
 
 `usernamePassword()` takes 3 parameters: `<credential_ID>`, `<username>`, & `<password>`. They are not strictly named, but are strictly ordered.
 
@@ -135,5 +169,63 @@ withCredentials([
 ```
 
 ### Tools
+
+To use build tools, add `tools`. The tools will be installed & added into `$PATH`. The name of the tool can be found in "Global Tool Configuration" in Jenkins GUI.
+
+**Example**
+
+```groovy
+// Tools
+tools {
+    go "go1.15.7"
+}
+```
+
+### Parameters
+
+To change Jenkins behaviour after it starts, use `parameters` for user to modify configuration. Parameters are available as `string`, `booleanParam`, `choice`, & others. For each parameter, a `name`, `defaultValue`, & `description` are necessary keys. Parameters can be used by `params.<parameter_name>`.
+
+In Jenkins GUI, "Build" is replaced with "Build with Parameters".
+
+**Example**
+
+```groovy
+// Parameters
+parameters {
+    string(name: "VERSION", defaultValue: "", description: "version to deploy on production")
+    choice(name: "VERSION", choices: ["1.1.0", "1.2.0", "1.3.0"], description: "you mom")
+    booleanParam(name: "executeTest", defaultValue: true, description: "")
+}
+. . .
+// Parameters
+when {
+    expression {
+        params.executeTest
+    }
+}
+```
+
+_NOTE: `params.executeTest` is the same as `params.executeTest == true`._
+
+### Groovy Script
+
+Jenkinsfile offers basic logic. To enhance this, we can use Groovy scripts to do more (eg define variables, if else statements, try catch statements). These are enclosed in `script` tags.
+
+```groovy
+// Groovy Script
+script {
+    def youMom = "/path/to/you/mom"
+    if (youMom) {
+        println "youMom exists"
+        echo "testing application version ${VERSION} . . ."
+    }
+}
+```
+
+### Tips
+
+1. Modify Jenkinsfile in Jenkins GUI
+   - Navigate into the branch, then "Replay".
+   - This is useful for debugging or for short term changes.
 
 ## Credits
