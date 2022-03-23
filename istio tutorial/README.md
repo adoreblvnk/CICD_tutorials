@@ -47,7 +47,7 @@ The Service Mesh is the network layer.
 - Configured with K8s YAML files using CRD (Custom Resource Definitions) (eg `kind: DestinationRule`).
   - **CRD**: Custom K8s component for 3rd party tools.
 - **2 Istio CRDs**:
-   1. **Virtual Service**: Defines ow to route the traffic <mark>to</mark> the specified destination.
+   1. **Virtual Service**: Defines how to route the traffic <mark>to</mark> the specified destination.
    2. **DestinationRule**:  Configures what happens to traffic <mark>for</mark> that destination.
 
 These config files are converted into <mark>Envoy-specific</mark> configurations. Configurations are propagated into Proxy sidecars.
