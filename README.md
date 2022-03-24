@@ -42,11 +42,11 @@ It is recommended to start with Docker, then Kubernetes.
 ## TODO:
 
 - add banner to README.
+- update README.
+- reformat unit testing / add docs.
 - reformat .gitignore.
 - add content.
-  - jenkins
   - argocd
-  - unit testing
 
 ## Credits
 
