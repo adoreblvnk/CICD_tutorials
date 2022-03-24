@@ -168,9 +168,11 @@ withCredentials([
 }
 ```
 
-### Tools
+### Build Tools
 
-To use build tools, add `tools`. The tools will be installed & added into `$PATH`. The name of the tool can be found in "Global Tool Configuration" in Jenkins GUI.
+To use build tools, add `tools`. The tools will be installed & added into `$PATH`. The name of the tool can be found in "Global Tool Configuration" in Jenkins GUI. Execute tools using `sh` command.
+
+For tools not listed in the default Jenkins configuration, install from "Manage Plugins", then restart Jenkins.
 
 **Example**
 
