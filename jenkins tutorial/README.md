@@ -1,5 +1,7 @@
 # Jenkins tutorial
 
+Learning Kubernetes from [Complete Jenkins Pipeline Tutorial](https://youtu.be/7KCS70sCoK0). Special thanks to Nanuchi for creating the course.
+
 ## Content
 
 Jenkins allows developers to <mark>continuously</mark> build, test, & deploy the code to check that the application is stable. This allows for continuous development.
@@ -231,3 +233,6 @@ script {
    - This is useful for debugging or for short term changes.
 
 ## Credits
+
+- prod by blvnk.
+- [TechWorld with Nana](https://twitter.com/Njuchi_)
