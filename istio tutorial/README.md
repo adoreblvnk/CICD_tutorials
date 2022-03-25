@@ -24,7 +24,7 @@ Components of Microservice:
 5. **MT** (Metrics & Tracing)
    - Monitor performance (eg how many requests does each microservice send / receive?, how long each request take?).
 
-Apart from the 1st point, the rest of the components have to be added to each application, further complicating development. 
+Apart from the 1st point, the rest of the components have to be added to each application, further complicating development.
 
 ### Service Mesh with Sidecar Pattern
 
@@ -47,24 +47,18 @@ The Service Mesh is the network layer.
 - Configured with K8s YAML files using CRD (Custom Resource Definitions) (eg `kind: DestinationRule`).
   - **CRD**: Custom K8s component for 3rd party tools.
 - **2 Istio CRDs**:
-   1. **Virtual Service**: Defines how to route the traffic <mark>to</mark> the specified destination.
-   2. **DestinationRule**:  Configures what happens to traffic <mark>for</mark> that destination.
+  1.  **Virtual Service**: Defines how to route the traffic <mark>to</mark> the specified destination.
+  2.  **DestinationRule**: Configures what happens to traffic <mark>for</mark> that destination.
 
 These config files are converted into <mark>Envoy-specific</mark> configurations. Configurations are propagated into Proxy sidecars.
 
 ### Istio Features
 
-**Service Discovery**
+**Service Discovery**: Instead of statically configuring the endpoints, we can ensure that the new microservice gets registered automatically / dynamically.
 
-Instead of statically configuring the endpoints, we can ensure that the new microservice gets registered automatically / dynamically.
+**Security**: Istiod can act as a CA & generate certificates for all microservices.
 
-**Security**
-
-Istiod can act as a CA & generate certificates for all microservices.
-
-**Metrics & Tracking**
-
-Get telemetry data from Envoy proxy & can be forwarded / analyzed by monitoring server (eg Prometheus).
+**Metrics & Tracking**: Get telemetry data from Envoy proxy & can be forwarded / analyzed by monitoring server (eg Prometheus).
 
 **Istio Ingress Gateway**: Alternative to Nginx Ingress Controller.
 
@@ -76,13 +70,13 @@ CRD for Istio Ingress Gateway is `kind: Gateway`.
 
 ### Download Istio & Configure Istioctl
 
-*Note: Istioctl needs a minimum of 6 CPUs & 8192 memory.*
+_Note: Istioctl needs a minimum of 6 CPUs & 8192 memory._
 
 Install [Istioctl](https://istio.io/latest/docs/setup/install/istioctl/) & add it to path.
 
 ### Install Istio in Minikube Cluster
 
-Run in default namespace. *Note: Run `kubectl get ns`.*
+Run in default namespace. _Note: Run `kubectl get ns`._
 
       istioctl install
 
@@ -98,9 +92,9 @@ Microservice application used here is [Online Boutique](https://github.com/Googl
    kubectl apply -f kubernetes-manifests.yaml
    ```
    - Run the following to check if all pods have started.
-      ```
-      kubectl get pod
-      ```
+     ```
+     kubectl get pod
+     ```
 
 When running the above command, notice that there is only 1 container running inside a pod. Note that <mark>Envoy proxies were NOT injected</mark>!
 
@@ -117,19 +111,19 @@ This can be configured via namespace labels. To view namespace labels, run the f
    - `istio-injection` tells Istio to enable it.
 2. Rerun the pods.
    - Delete the current deployment.
-      ```
-      kubectl delete -f kubernetes-manifests.yaml
-      ```
+     ```
+     kubectl delete -f kubernetes-manifests.yaml
+     ```
    - Start the microservice.
-      ```
-      kubectl apply -f kubernetes-manifests.yaml
-      ```
-   - *Note: We do not have to modify the existing Kubernetes files. Istio auto injects Envoy proxies just by enabling the option.*
+     ```
+     kubectl apply -f kubernetes-manifests.yaml
+     ```
+   - _Note: We do not have to modify the existing Kubernetes files. Istio auto injects Envoy proxies just by enabling the option._
 3. View any pod configuration from the application.
    ```
    kubectl describe pod <pod_name>
    ```
-   - *Note: There is a new `istio-init` inside `Init Containers`. This is automatically injected by Istio.*
+   - _Note: There is a new `istio-init` inside `Init Containers`. This is automatically injected by Istio._
 
 ### Istio Addons for Monitoring & Data Visualization
 
@@ -148,7 +142,7 @@ In [Istio Features](#istio-features), Istio collects telemetry.
    - **Prometheus**: Monitoring tool.
    - **Jaeger**: Trace microservice requests.
    - **Zipkin**: Jaeger alternative.
-   - **Kiali**: Data visualization tool (including monitoring & tracing).   
+   - **Kiali**: Data visualization tool (including monitoring & tracing).
 
 ### Kiali: Service Mesh Management for Istio
 
@@ -157,7 +151,7 @@ In [Istio Features](#istio-features), Istio collects telemetry.
    kubectl port-forward svc/kiali -n istio-system 20001
    ```
 2. Navigate to `localhost:20001`.
-3. The `Graph` section visualizes the network of microservices. Kiali has `Traffic`, `Inbound Metrics`, & `Traces` too. 
+3. The `Graph` section visualizes the network of microservices. Kiali has `Traffic`, `Inbound Metrics`, & `Traces` too.
 
 ### Labels in Pods for Istio
 

@@ -6,9 +6,7 @@ Learning Jenkins from [Complete Jenkins Pipeline Tutorial](https://youtu.be/7KCS
 
 Jenkins allows developers to <mark>continuously</mark> build, test, & deploy the code to check that the application is stable. This allows for continuous development.
 
-**Why Use Jenkinsfile?**
-
-Instead of creating new jobs for Jenkins via GUI, Jenkinsfile is a pipeline as a code. A pipeline is a process of deploying source code from repo to production.
+**Why Use Jenkinsfile?**: Instead of creating new jobs for Jenkins via GUI, Jenkinsfile is a pipeline as a code. A pipeline is a process of deploying source code from repo to production.
 
 ### Practical: Create Jenkinsfile
 
@@ -133,9 +131,7 @@ when {
 
 The following code translate to: if BRANCH_NAME is dev or master, the expression is true.
 
-**Custom Environmental Variables**
-
-Create custom env vars with `environment`. Use custom env vars with `${<env_var>}`.
+**Custom Environmental Variables**: Create custom env vars with `environment`. Use custom env vars with `${<env_var>}`.
 
 **Using Jenkins Credentials**
 
