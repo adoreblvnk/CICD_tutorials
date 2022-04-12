@@ -160,10 +160,10 @@ Alternative for Docker run commands. Starts or stops containers.
 ### Building Docker Image w/ Dockerfile
 
 ```dockerfile
-FROM node:13-alpine
+# using prebuilt Node image from Docker Hub (ie. install Node)
+FROM node:13-alpine 
 
-ENV MONGO_DB_USERNAME=admin \
-    MONGO_DB_PWD=password
+ENV MONGO_DB_USERNAME=admin MONGO_DB_PWD=password
 
 RUN mkdir -p /home/app
 
@@ -176,14 +176,46 @@ RUN npm install
 CMD ["node", "server.js"]
 ```
 
-- `FROM node:13-alpine` installs node & `13-alpine` version to use node command.
-- `ENV MONGO_DB_USERNAME=admin MONGO_DB_PWD=password` configures env vars.
-- `RUN mkdir -p /home/app` executes any Linux command
-- `COPY ./app /home/app` copies everything from Host `/app` dir into Container `/home/app` dir.
-- `WORKDIR /home/app`
-- `RUN npm install`
-- `CMD ["node", "server.js"]` default command that overrides other commands when container runs.
-- _whenever Dockerfile is modified, image must be rebuilt._
+**FROM**
+
+    FROM <image>:<tag> [AS <name>]
+
+Sets the base image.
+
+- Options:
+  - `AS [<name>]`: Sets alias for the image.
+
+**ENV**
+
+    ENV <name>=<value>
+
+Alternative to defining environment variables in `docker-compose.yaml`. Best practice is to <mark>use `docker-compose.yaml` for environmental variables because if something changes, it can be overridden by `docker-compose.yaml`</mark> instead of rebuilding Dockerfile.
+
+**RUN**
+
+    RUN <command>
+
+Executes any Linux command. Commands are run <mark>inside</mark> the container.
+
+**COPY**
+
+    COPY <source> <destination>
+
+Copies files from host to container.
+
+**WORKDIR**
+
+    WORKDIR <path>
+
+Sets the working directory in the container. Can be used multiple times.
+
+**CMD**
+
+    CMD <command>
+
+Executes an entrypoint command.
+
+*NOTE: Dockerfile has to be rebuilt whenever Dockerfile is modified.*
 
 ```
 docker build -t <image_name>:<tag> <Dockerfile_directory>
