@@ -12,132 +12,154 @@ Deploying a NodeJS web app with MongoDB onto Docker with persistence.
 
 ### Basic Commands
 
+**Docker Pull**
+
+    docker pull <image>
+
+Pulls an image from a registry.
+
+**Docker Images**
+
+    docker images
+
+List all images.
+
+**Docker Run**
+
+    docker run <image> [OPTIONS]
+
+Runs a new container from an image.
+
+- Options:
+  - `-d`: Detached mode (ie. run in background).
+  - `--name`: Name of the container.
+  - `-e`: Set environment variables.
+  - `-p <host_port>:<container_port>`: Port binding. Binds host port to container port.
+    - This allows to run multiple instances of the same container port.
+- Shortcut:
+  - `docker run <image>:<tag>` = `docker pull <image>:<tag> && docker run <image>:<tag>`
+
+**Docker Process Status**
+
+    docker ps
+
+Lists all running containers.
+
+- Options:
+  - `-a`: Show all containers.
+
+**Docker Start / Stop**
+
+    docker start <container_ID>
+    docker stop <container_ID>
+
+#### Debugging
+
+**Docker Logs**
+
+    docker logs <container_ID>
+
+Fetches the logs of a container.
+
+**Docker Container Terminal**
+
+    docker exec -it <container_ID> /bin/bash
+
+Launch a interactive terminal in the container. Specify shell type with `/bin/bash`.
+
+### Practical: Basic Deployment of NodeJS Web App w/ Containers
+
+#### Step 1: Pull the Image
+
+    docker pull mongo
+    docker pull mongo-express
+
+**Docker Network**
+
+![](https://i.imgur.com/v4WqyAp.png)
+
+Containers in the same network can communicate with each other automatically. With a network, configuring IP addresses / port number for each container is not necessary. External applications can connect to it using the IP address of the exposed container(s).
+
+**Docker Create Network**
+
+    docker network create <network_name>
+
+**Docker List Network**
+
+    docker network ls
+
+#### Step:2 Run MongoDB Containers
+
+**Run Mongo**
+
+    docker run ^
+      -d ^
+      -p 27017:27017 ^
+      -e MONGO_INITDB_ROOT_USERNAME=admin ^
+      -e MONGO_INITDB_ROOT_PASSWORD=password ^
+      --name mongodb ^
+      --net mongo-network ^
+      mongo
+
+Docker will run the container in detached mode on port 27017 with respective environment variables. The container will be named `mongodb`. The container will be connected to the network `mongo-network`. Environment variable names are found in [MongoDB Docker docs](https://hub.docker.com/_/mongo).
+
+**Run MongoExpress UI**
+
+    docker run ^
+      -d ^
+      -p 8081:8081 ^
+      -e ME_CONFIG_MONGODB_ADMINUSERNAME=admin ^
+      -e ME_CONFIG_MONGODB_ADMINPASSWORD=password ^
+      -e ME_CONFIG_MONGODB_SERVER=mongodb ^
+      --net mongo-network ^
+      --name mongo-express ^
+      mongo-express
+
+#### Step 4: Docker Compose
+
+**Syntax**
+
+```yaml
+version: "3" # optional
+services:
+  mongodb: # container name
+    image: mongo # image name. version can also be specified.
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - mongo-data:/data/db
+  mongo-express:
+    image: mongo-express
+    restart: always # fixes MongoNetworkError when mongodb is not ready when mongo-express starts
+    ports:
+      - 8080:8081
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+volumes:
+  mongo-data:
+    driver: local
 ```
-docker pull <image>
-```
 
-- default version is latest.
+Docker Compose takes care of creating a common network. Hence there is no need to specify the network name.
 
-```
-docker images
-```
+**Running Docker Compose**
 
-```
-docker run <image> [<-d> <--name <name>> <-e <environment_variables>>]
-```
+    docker-compose <up | down>
 
-- create & run a new container from an image.
-- `-d` runs container in detached mode (ie run in background).
-- `--name` gives a custom name to container.
-- `-e` sets env vars.
+- Options:
+  -  `-f`: Specify docker-compose.yaml file path.
+  -  `-d`: Detached mode.
 
-```
-docker ps <-a>
-```
-
-- lists running containers.
-- `-a` shows all containers.
-
-```
-docker stop <container_ID>
-```
-
-```
-docker start <container_ID>
-```
-
-#### Port Binding
-
-```
-docker run -p <Host_Port>:<Container_Port>
-```
-
-- binds host port to container port.
-  - to run multiple instances of the same port.
-
-#### Troubleshooting
-
-```
-docker logs <container_ID>
-```
-
-```
-docker exec -it <container_ID> <shell_path>
-```
-
-- launches an interactive terminal in a container. Specify shell type (eg `/bin/sh`, `/bin/bash`).
-  - navigate the directories of the container here.
-  - check env var with `env` command.
-
-### Basic Deployment of NodeJS Web App w/ Containers
-
-```
-docker pull mongo
-docker pull mongo-express
-```
-
-- pull MongoDB images.
-
-#### Docker Network
-
-![docker network](https://i.imgur.com/v4WqyAp.png)
-
-Docker Network where containers are in. When 2 containers are deployed in the same network, they can communicate with each other without configuring localhost port number, etc.
-
-Applications that run outside of the network will connect to it just by using localhost & port number.
-
-```
-docker network create <network_name>
-```
-
-```
-docker network ls
-```
-
-#### Run MongoDB Containers
-
-```
-docker run ^
-  -d ^
-  -p 27017:27017 ^
-  -e MONGO_INITDB_ROOT_USERNAME=admin ^
-  -e MONGO_INITDB_ROOT_PASSWORD=password ^
-  --name mongodb ^
-  --net mongo-network ^
-  mongo
-```
-
-- docker run in detached mode on host port 27017 with respective env vars with name mongodb. This will run in the network mongo-network defined earlier.
-- env var names are in [MongoDB Docker docs](https://hub.docker.com/_/mongo).
-
-```
-docker run ^
-  -d ^
-  -p 8081:8081 ^
-  -e ME_CONFIG_MONGODB_ADMINUSERNAME=admin ^
-  -e ME_CONFIG_MONGODB_ADMINPASSWORD=password ^
-  --net mongo-network ^
-  --name mongo-express ^
-  -e ME_CONFIG_MONGODB_SERVER=mongodb ^
-  mongo-express
-```
-
-- runs mongo-express.
-
-### Docker Compose
-
-```
-docker-compose -f <filename> <up | down> [<-d>]
-```
-
-- run configurations across multiple containers quickly.
-  - _docker-compose is an efficient alternative to running multiple Docker commands._
-- `up` builds & starts containers.
-- `down` stops containers.
+Alternative for Docker run commands. Starts or stops containers.
 
 ### Building Docker Image w/ Dockerfile
 
-```
+```dockerfile
 FROM node:13-alpine
 
 ENV MONGO_DB_USERNAME=admin \
@@ -257,38 +279,41 @@ Sauce: [Docker Best Practices](https://youtu.be/8vXoMqWgbQQ)
 5. Use `.dockerignore` to ignore autogenerated files / others.
    - Exclude `venv`, README, etc.
 6. Use multi-stage builds.
+
    - There are some files that are needed for building the image, but not for running the app at the final stage (eg requirements.txt, package.json).
    - You can separate them with multiple `FROM` commands. Each `FROM` command starts a new build stage. But only the last `FROM` command creates the final Image Layer.
    - Use this:
-      ```dockerfile
-      # build stage
-      FROM maven as build
-      ...
 
-      # run stage
-      FROM tomcat
-      ...
-      ```
+     ```dockerfile
+     # build stage
+     FROM maven as build
+     ...
+
+     # run stage
+     FROM tomcat
+     ...
+     ```
+
 7. Use the least privileged user.
    - By default Docker runs on root.
    - Fix this by creating a new user & group with only required permissions.
    - Use this:
-      ```dockerfile
-      # create group & user
-      RUN groupadd -r tom && useradd -g tom tom
-      # set ownership & permissions
-      RUN chown -R tom:tom /app
-      # switch to user
-      USER tom
-      CMD node index.js
-      ```
-   - *Note: Some base images have a generic user bundled in, so you can use it.*
+     ```dockerfile
+     # create group & user
+     RUN groupadd -r tom && useradd -g tom tom
+     # set ownership & permissions
+     RUN chown -R tom:tom /app
+     # switch to user
+     USER tom
+     CMD node index.js
+     ```
+   - _Note: Some base images have a generic user bundled in, so you can use it._
      - For example, `USER node` in node image.
 8. Docker scan for vulnerabilities.
    - Run this following command:
-      ```
-      docker scan <app_name>:<tag_number>
-      ```
+     ```
+     docker scan <app_name>:<tag_number>
+     ```
    - Can be <mark>integrated in CI/CD</mark>.
 
 ## Credits
