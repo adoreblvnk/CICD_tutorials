@@ -12,11 +12,11 @@ Jenkins allows developers to <mark>continuously</mark> build, test, & deploy the
 
 The [demo app](../docker%20tutorial/README.md) from Docker tutorial will be used. All code files wil be located there.
 
-## Step 1: Create Jenkinsfile
+### Step 1: Create Jenkinsfile
 
 Create `Jenkinsfile` at base repository folder.
 
-## Step 2: Declarative Pipeline Syntax
+### Step 2: Declarative Pipeline Syntax
 
 **Scripted vs Declarative Syntax**
 
@@ -29,7 +29,7 @@ Jenkins supports 2 versions of Pipeline syntax. Scripted syntax is much more com
 3. Easy to code.
 4. Allows restarting from specific stage.
 
-## Step 3: Jenkinsfile Syntax
+### Step 3: Jenkinsfile Syntax
 
 ```groovy
 pipeline {
