@@ -10,7 +10,7 @@ Deploying a NodeJS web app with MongoDB onto Docker with persistence.
 
 ---
 
-### Basic Commands
+## Basic Commands
 
 **Docker Pull**
 
@@ -53,7 +53,7 @@ Lists all running containers.
     docker start <container_ID>
     docker stop <container_ID>
 
-#### Debugging
+### Debugging
 
 **Docker Logs**
 
@@ -67,9 +67,9 @@ Fetches the logs of a container.
 
 Launch a interactive terminal in the container. Specify shell type with `/bin/bash`.
 
-### Practical: Basic Deployment of NodeJS Web App w/ Containers
+## Practical: Basic Deployment of NodeJS Web App w/ Containers
 
-#### Step 1: Pull the Image
+### Step 1: Pull the Image
 
     docker pull mongo
     docker pull mongo-express
@@ -88,7 +88,7 @@ Containers in the same network can communicate with each other automatically. Wi
 
     docker network ls
 
-#### Step:2 Run MongoDB Containers
+### Step: 2 Run MongoDB Containers
 
 **Run Mongo**
 
@@ -115,7 +115,7 @@ Docker will run the container in detached mode on port 27017 with respective env
       --name mongo-express ^
       mongo-express
 
-#### Step 4: Docker Compose
+### Step 3: Docker Compose
 
 **Syntax**
 
@@ -157,7 +157,7 @@ Docker Compose takes care of creating a common network. Hence there is no need t
 
 Alternative for Docker run commands. Starts or stops containers.
 
-### Building Docker Image w/ Dockerfile
+### Step: 4 Building Docker Image w/ Dockerfile
 
 ```dockerfile
 # using prebuilt Node image from Docker Hub (ie. install Node)
