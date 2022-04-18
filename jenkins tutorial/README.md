@@ -12,6 +12,14 @@ Jenkins allows developers to <mark>continuously</mark> build, test, & deploy the
 
 The [demo app](../docker%20tutorial/README.md) from Docker tutorial will be used. All code files wil be located there.
 
+## Jenkins Concepts
+
+**Pipeline**: This is a user-defined model of a build, test and deploy process for a project.
+
+**Node**: A machine that the Jenkins Controller executes pipeline jobs on.
+
+**Stage**: A logical grouping of jobs that are executed in sequence, usually categorized into "build", "test", & "deploy" stages.
+
 ### Step 1: Create Jenkinsfile
 
 Create `Jenkinsfile` at base repository folder.
@@ -268,6 +276,18 @@ Jenkins will automatically start building the configuration from your detected J
 1. Modify Jenkinsfile in Jenkins GUI
    - Navigate into the branch, then "Replay".
    - This is useful for debugging or for short term changes.
+2. Use Timeouts at the Stage Level
+   - Prevents the Pipeline stage from running indefinitely.
+   - **timeout**
+     ```groovy
+     stage("<stage_name>") {
+         timeout(time: <time_in_minutes>)
+     }
+     ```
+   - Enforces a time limit.
+3. Use Github Hook Trigger for Github Integration
+   - ![](img/github_integration.png)
+   - It is preferrable as Jenkins does not have to constantly poll Github to monitor changes.
 
 ## Credits
 
