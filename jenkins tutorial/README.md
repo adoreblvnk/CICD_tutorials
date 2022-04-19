@@ -271,6 +271,18 @@ Save.
 
 Jenkins will automatically start building the configuration from your detected Jenkinsfile in the repository.
 
+### Pipeline: Nodes & Processes
+
+**sh**
+
+    sh (script: "<script_commands>", [OPTIONS])[.trim()]
+
+Runs a shell script (ie `sh`). Advanced syntax with options.
+
+- Options:
+  - `returnStaus`: Return status of the script. Default is `false`.
+  - `returnStdout`: Return stdout of the script. Default is `false`. Use `.trim()` to strip trailing newline.
+
 ### Tips
 
 1. Modify Jenkinsfile in Jenkins GUI
@@ -288,6 +300,8 @@ Jenkins will automatically start building the configuration from your detected J
 3. Use Github Hook Trigger for Github Integration
    - ![](img/github_integration.png)
    - It is preferrable as Jenkins does not have to constantly poll Github to monitor changes.
+4. Use Shell Scripts Over Groovy Scripts
+   - Groovy scripts are more powerful, but they are not as easy to read.
 
 ## Credits
 
