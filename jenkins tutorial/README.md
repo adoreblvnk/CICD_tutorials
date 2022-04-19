@@ -271,7 +271,7 @@ Save.
 
 Jenkins will automatically start building the configuration from your detected Jenkinsfile in the repository.
 
-### Pipeline: Nodes & Processes
+### Pipeline: Nodes & Processes (from Pipeline Plugin)
 
 **sh**
 
