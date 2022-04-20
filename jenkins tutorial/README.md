@@ -283,6 +283,21 @@ Runs a shell script (ie `sh`). Advanced syntax with options.
   - `returnStaus`: Return status of the script. Default is `false`.
   - `returnStdout`: Return stdout of the script. Default is `false`. Use `.trim()` to strip trailing newline.
 
+## Pipeline: Build Step (from Pipeline Plugin)
+
+**build**
+
+    build (job: step"<job_name>", parameters: [<parameters>], propagate: <propagate_build>)
+
+Trigger a build of another job.
+
+- `job_name`: Job to be triggered. Use `step[<job_name>]` to trigger a build step.
+- `parameters`: 
+  - From [Pipeline: Build Step](https://www.jenkins.io/doc/pipeline/steps/pipeline-build-step/).
+- `<propagate_build>`:
+  - `true`: (Default) Result of this step will be that of the downstream build (ie are the same even & downstream build takes preference).
+  - `false`: Result of this step is independent of downstream build.
+
 ### Tips
 
 1. Modify Jenkinsfile in Jenkins GUI
