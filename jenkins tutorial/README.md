@@ -280,14 +280,14 @@ Jenkins will automatically start building the configuration from your detected J
 Runs a shell script (ie `sh`). Advanced syntax with options.
 
 - Options:
-  - `returnStaus`: Return status of the script. Default is `false`.
-  - `returnStdout`: Return stdout of the script. Default is `false`. Use `.trim()` to strip trailing newline.
+  - `returnStaus`: Return exit code of the script. Default is `false`.
+  - `returnStdout`: Return output of the script. Default is `false`. Use `.trim()` to strip trailing newline.
 
 ## Pipeline: Build Step (from Pipeline Plugin)
 
 **build**
 
-    build (job: step"<job_name>", parameters: [<parameters>], propagate: <propagate_build>)
+    build (job: step["<job_name>"], parameters: [<parameters>], propagate: <propagate_build>)
 
 Trigger a build of another job.
 
