@@ -62,7 +62,7 @@ Below is a non-exhaustive list of built-in functions. Refer to [Policy Reference
 | Category                | Functions                                                      |
 | ----------------------- | -------------------------------------------------------------- |
 | Basic                   | `==`, `!=`, `<`, `>`, `<=`, `>=`, `+`, `-`, `*`, `/`, `%`      |
-| Strings                 | `concat`, `lower`, `trim`, `replace`, regex, glob              |
+| Strings                 | `concat`, `lower`, `trim`, `replace`, regex, glob, `split`     |
 | Arrays / Sets / Objects | `concat`, `slice`, `intersection`, `union`, `remove`, `filter` |
 | Aggregates              | `count`, `sum`, `min`, `sort`                                  |
 | Parsing                 | base64, urlquery, json, yaml                                   |
