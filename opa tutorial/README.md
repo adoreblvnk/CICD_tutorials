@@ -92,7 +92,7 @@ allow = true {
 
 `default` is an optional keyword to set default value.
 
-*Tip: Skip `true` for a shortcut, eg `allow = true { . . . }` is equivalent to `allow = { . . . }`.*
+_Tip: Skip `true` for a shortcut, eg `allow = true { . . . }` is equivalent to `allow = { . . . }`._
 
 ### Rule Chaining & Non-Boolean Rules
 
@@ -145,5 +145,172 @@ content = result {
 **Policy Decisions**
 
 A Policy Decision is the value of the variable. This is typically used for enforcing policies.
+
+## (Practical) Rego Rules
+
+Follow the [practical tutorial](https://academy.styra.com/courses/take/opa-rego/texts/23090465-section-1-getting-started) for verbose info.
+
+**Getting Started**
+
+1. Initialise your policy.
+   - Create policy file `policy.rego` with content as below.
+   ```rego
+   package rules
+   default allow = false
+   ```
+2. Add some user data.
+   - Add user data to `policy.rego`.
+   ```rego
+   users := {
+       "alice":   {"manager": "charlie", "title": "salesperson"},
+       "bob":     {"manager": "charlie", "title": "salesperson"},
+       "charlie": {"manager": "dave",    "title": "manager"},
+       "dave":    {"manager": null,      "title": "ceo"}
+   }
+   ```
+3. Evaluate your policy.
+   - Run `opa eval -d policy.rego "data.rules"` to evaluate your policy.
+
+**Start CarInfoStore Policy**
+
+1. Write a rule that allows everyone to `GET /cars`.
+   ```rego
+   allow {
+       input.method == "GET"
+       input.path == ["cars"]
+   }
+   ```
+2. Specify input for the rule.
+   - Create input file `input.json` with content as:
+   ```json
+   {
+     "method": "GET",
+     "path": ["cars"],
+     "user": "alice"
+   }
+   ```
+   - Run `opa eval -d policy.rego -i input.json "data.rules"` to evaluate your policy.
+3. Test rule with different input.
+   - Change `input.json` to:
+   ```json
+   {
+     "method": "POST",
+     "path": ["cars"],
+     "user": "alice"
+   }
+   ```
+   - Re-evaluate OPA. Notice that the value for `allow` is `false`.
+
+**Write Tests**
+
+1. Write tests.
+   - Create test file `policy_test.rego` with content as:
+   ```rego
+   package rules_test
+   import data.rules.allow as allow
+   test_car_read_positive {
+       in = {
+           "method": "GET",
+           "path": ["cars"],
+           "user": "alice",
+       }
+       allow == true with input as in
+   }
+   test_car_read_negative {
+       in = {
+           "method": "GET",
+           "path": ["nonexistent"],
+           "user": "alice",
+       }
+       allow == false with input as in
+   }
+   ```
+   - Run tests with `opa test -v .`. Both tests should pass.
+
+**Finish the Policy**
+
+1. Create helpers.
+   - Add helper definitions to `policy.rego` with:
+   ```rego
+   user_is_employee {
+       users[input.user]
+   }
+   user_is_manager {
+       users[input.user].title != "salesperson"
+   }
+   ```
+   - Write a rule to allow only managers to create new cars in `policy.rego`:
+   ```rego
+   allow {
+       # only managers can create a new car
+       input.method == "POST"
+       user_is_manager
+       input.path == ["cars"]
+   }
+   ```
+   - Add tests to `policy_test.rego` with:
+   ```rego
+   test_car_create_negative {
+       in = {
+           "method": "POST",
+           "path": ["cars"],
+           "user": "alice",
+       }
+       allow == false with input as in
+   }
+   test_car_create_positive {
+       in = {
+           "method": "POST",
+           "path": ["cars"],
+           "user": "charlie",
+       }
+       allow == true with input as in
+   }
+   ```
+   - Run tests with `opa test -v .`. All 4 tests should pass.
+2. Finish the policy.
+   - Write the logic that allows only employees to `GET /cars/{carid}`. You can assume that input.path comes in as an array (eg `["cars", "id789-932"]`).
+   - Styra solution:
+   ```rego
+   allow {
+       # only employees can GET /cars/{carid}
+       user_is_employee
+       input.path == ["cars", carid]
+       input.method == "GET"
+   }
+   ```
+   - _NOTE: OPA will fail as `carid` is not defined._
+   - To solve this, define `carid` & add the following rule to `policy.rego`:
+   ```rego
+   allow {
+       # only employees can GET /cars/{carid}
+       user_is_employee
+       carid := input.path[1]
+       input.path == ["cars", carid]
+       input.method == "GET"
+   }
+   ```
+
+**(Extras) Modify Input**
+
+1. Modify `input.json` with the following values & re-evaluate OPA each time.
+   ```json
+   {
+     "input": {
+       "method": "POST",
+       "path": ["cars"],
+       "user": "alice"
+     }
+   }
+   ```
+   ```json
+   {
+     "input": {
+       "method": "POST",
+       "path": ["cars"],
+       "user": "charlie"
+     }
+   }
+   ```
 
 TODO: write a tutorial for opa gatekeeper.

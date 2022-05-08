@@ -1,0 +1,7 @@
+{
+  "method": "GET",
+  "path": [
+    "cars"
+  ],
+  "user": "alice"
+}
