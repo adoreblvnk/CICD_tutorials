@@ -31,6 +31,8 @@ For Kubernetes resource configurations, OPA can be integrated in:
 
 ![](img/rego_overview.png)
 
+### Single Values
+
 **Values & Variables**: Rego supports String, Number, Boolean, Array, Object, null, & Set.
 
 **Variable Assignment**: Done with `s := "Hello World"`
@@ -53,6 +55,8 @@ When a path is missing, result is `undefined`, not an error (ie OPA does not thr
 - `not` turns `false` to `true`.
 - `not` turns everything else into `undefined`.
 
+### Comparing & Constructing Values
+
 **Equality Expressions**: `==`
 
 **Built-In Expressions**
@@ -70,4 +74,76 @@ Below is a non-exhaustive list of built-in functions. Refer to [Policy Reference
 | Time                    | `time.date`, time, `time.add_date`                             |
 | Network CIDRs           | `net.cidr_contains`, `net.cidr_intersects`, `net.cidr_expand`  |
 
-TODO: write a tutorial for opa
+## Basic Rego Rules
+
+### Boolean Rules & Evaluation
+
+**Boolean Rules**
+
+Boolean rules are IF statements that assign a variable to `true` / `false`.
+
+```rego
+# variable `allow` is assigned to `true` if the following conditions are satisfied, else false.
+default allow = false
+allow = true {
+    . . .
+}
+```
+
+`default` is an optional keyword to set default value.
+
+*Tip: Skip `true` for a shortcut, eg `allow = true { . . . }` is equivalent to `allow = { . . . }`.*
+
+### Rule Chaining & Non-Boolean Rules
+
+**Logical AND & OR Rule Evaluation**
+
+AND is achieved by chaining condition in the same rule, eg:
+
+```rego
+allow {
+    condition_1
+    condition_2
+}
+```
+
+OR is achieved by chaining multiple rules, eg:
+
+```rego
+allow {
+    condition_1
+}
+allow {
+    condition_2
+}
+```
+
+**Non-Boolean Rules**
+
+Specify rule assignment with `=` (eg `code = 200 { not deny }`).
+
+Values can be computed, eg:
+
+```rego
+port_number = result {
+    values := split(input.request.host, ":")
+    result := to_number(values[1])
+}
+```
+
+Multiple values can be returned via an object, eg:
+
+```rego
+content = result {
+    result := {
+        "story": "Hello World",
+        "author": "hi blvnk"
+    }
+}
+```
+
+**Policy Decisions**
+
+A Policy Decision is the value of the variable. This is typically used for enforcing policies.
+
+TODO: write a tutorial for opa gatekeeper.
