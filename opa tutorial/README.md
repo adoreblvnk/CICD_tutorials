@@ -31,33 +31,19 @@ For Kubernetes resource configurations, OPA can be integrated in:
 
 ![](img/rego_overview.png)
 
-**Values & Variables**
+**Values & Variables**: Rego supports String, Number, Boolean, Array, Object, null, & Set.
 
-Rego supports the following types of values:
+**Variable Assignment**: Done with `s := "Hello World"`
 
-- String
-- Number
-- Boolean
-- null
-- Array
-- Object (Dictionary)
-- Set
-
-**Variable Assignment**
-
-Assignments are done using the following syntax:
-
-```go
-s := "Hello World" 
-```
-
-*NOTE: Variables are immutable. Treat them as constants.*
+_NOTE: Variables are immutable. Treat them as constants. This is because Rego is a declarative language._
 
 **Input & Data Variables**
 
 `input` is a global variable for storing JSON object passed to OPA.
 
 `data` is a global variable for storing external data given to OPA (eg other rules).
+
+**(Tip) Dot Expressions**: Dot `.` (eg `obj.key`) is shorthand for `obj["key"]`.
 
 **Undefined**
 
@@ -66,5 +52,22 @@ When a path is missing, result is `undefined`, not an error (ie OPA does not thr
 - `not` turns `undefined` to `true`.
 - `not` turns `false` to `true`.
 - `not` turns everything else into `undefined`.
+
+**Equality Expressions**: `==`
+
+**Built-In Expressions**
+
+Below is a non-exhaustive list of built-in functions. Refer to [Policy Reference](https://www.openpolicyagent.org/docs/latest/policy-reference/) for more.
+
+| Category                | Functions                                                      |
+| ----------------------- | -------------------------------------------------------------- |
+| Basic                   | `==`, `!=`, `<`, `>`, `<=`, `>=`, `+`, `-`, `*`, `/`, `%`      |
+| Strings                 | `concat`, `lower`, `trim`, `replace`, regex, glob              |
+| Arrays / Sets / Objects | `concat`, `slice`, `intersection`, `union`, `remove`, `filter` |
+| Aggregates              | `count`, `sum`, `min`, `sort`                                  |
+| Parsing                 | base64, urlquery, json, yaml                                   |
+| Tokens                  | verify, decode, encode                                         |
+| Time                    | `time.date`, time, `time.add_date`                             |
+| Network CIDRs           | `net.cidr_contains`, `net.cidr_intersects`, `net.cidr_expand`  |
 
 TODO: write a tutorial for opa
