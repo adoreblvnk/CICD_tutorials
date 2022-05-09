@@ -1,4 +1,4 @@
-# GitOps concepts
+# GitOps Concepts
 
 Learning GitOps from [GitOps](https://youtu.be/f5EpcWp0THw). Special thanks to Nanuchi for creating the course.
 

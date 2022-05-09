@@ -1,4 +1,4 @@
-# Jenkins tutorial
+# Jenkins Tutorial
 
 Learning Jenkins from [Complete Jenkins Pipeline Tutorial](https://youtu.be/7KCS70sCoK0). Special thanks to Nanuchi for creating the course.
 

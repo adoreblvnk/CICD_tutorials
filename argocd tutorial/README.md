@@ -1,4 +1,4 @@
-# ArgoCD tutorial
+# ArgoCD Tutorial
 
 Learning ArgoCD from [ArgoCD Tutorial for Beginners](https://youtu.be/MeU5_k9ssrs). Special thanks to Nanuchi for creating the course.
 

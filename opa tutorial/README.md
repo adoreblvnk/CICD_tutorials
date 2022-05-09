@@ -312,5 +312,3 @@ Follow the [practical tutorial](https://academy.styra.com/courses/take/opa-rego/
      }
    }
    ```
-
-TODO: write a tutorial for opa gatekeeper.

@@ -26,12 +26,6 @@ It is recommended to start with Docker, then Kubernetes.
 - Learn K8s volumes for persistent storage.
 - Learn about K8s StatefulSet for stateless applications. 
 
-### [GitOps](gitops%20concepts/README.md)
-
-- GitOps Terminologies
-- GitOps Advantages
-- GitOps Principle
-
 ### [Istio](istio%20tutorial/README.md) (w/ Practical)
 
 - Service mesh with sidecar pattern.
@@ -40,6 +34,12 @@ It is recommended to start with Docker, then Kubernetes.
   - Configure automated Envoy proxy injection via Istio.
 - Learn about Istio addons (Grafana, Prometheus, Jaeger, Zipkin, Kiali) for monitoring & data visualization.
   - Use Kiali for deployed application.
+
+### [GitOps](gitops%20concepts/README.md)
+
+- GitOps Terminologies
+- GitOps Advantages
+- GitOps Principle
 
 ### [Jenkins](jenkins%20tutorial/README.md) (w/ Practical)
 
@@ -56,6 +56,14 @@ It is recommended to start with Docker, then Kubernetes.
 - Pipeline: Build Step 
 - Tips
 
+### [ArgoCD](argocd%20tutorial/README.md) (w/ Practical)
+
+- CD Workflow with ArgoCD
+- How ArgoCD Works
+- Configuring ArgoCD
+- Multi-Cluster Usage
+- Practical: Deploying ArgoCD in K8s cluster.
+
 ## TODO:
 
 - add banner to README.
@@ -64,6 +72,7 @@ It is recommended to start with Docker, then Kubernetes.
 - reformat .gitignore.
 - add content.
   - argocd
+- write a tutorial for opa gatekeeper.
 
 ## Credits
 

@@ -1,4 +1,4 @@
-# kubernetes tutorial
+# Kubernetes Tutorial
 
 Learning Kubernetes from [Kubernetes Tutorial for Beginners](https://youtu.be/X48VuDVv0do). Special thanks to Nanuchi for creating the course.
 
