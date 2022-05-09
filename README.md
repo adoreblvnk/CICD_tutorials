@@ -82,4 +82,5 @@ It is recommended to start with Docker, then Kubernetes.
 ## Credits
 
 - [Techworld with Nana](https://twitter.com/Njuchi_)
+- [Tim Hinrichs](https://twitter.com/tlhinrichs)
 - prod by blvnk.
