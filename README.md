@@ -37,7 +37,18 @@ It is recommended to start with Docker, then Kubernetes.
 
 ### [Jenkins](jenkins%20tutorial/README.md) (w/ Practical)
 
-- 
+- Jenkins Concepts
+- Declarative Pipeline Syntax
+- Jenkinsfile Stages
+- Jenkinsfile Expressions
+- Environment Variables
+- Build Tools
+- Parameterized Build
+- External Groovy Script
+- Jenkins Build
+- Pipeline: Nodes & Processes
+- Pipeline: Build Step 
+- Tips
 
 ## TODO:
 
