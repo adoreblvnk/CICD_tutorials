@@ -26,6 +26,12 @@ It is recommended to start with Docker, then Kubernetes.
 - Learn K8s volumes for persistent storage.
 - Learn about K8s StatefulSet for stateless applications. 
 
+### [GitOps](gitops%20concepts/README.md)
+
+- GitOps Terminologies
+- GitOps Advantages
+- GitOps Principle
+
 ### [Istio](istio%20tutorial/README.md) (w/ Practical)
 
 - Service mesh with sidecar pattern.
