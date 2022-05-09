@@ -64,14 +64,19 @@ It is recommended to start with Docker, then Kubernetes.
 - Multi-Cluster Usage
 - Practical: Deploying ArgoCD in K8s cluster.
 
+### [OPA (Open Policy Agent)](opa%20tutorial/README.md) (w/ Practical)
+
+- OPA Introduction
+- Rego Expressions
+- Basic Rego Rules
+- Practical: Rego Rules & OPA Evaluation
+
 ## TODO:
 
 - add banner to README.
-- update README.
 - reformat unit testing / add docs.
 - reformat .gitignore.
-- add content.
-  - argocd
+- finish base OPA tutorial.
 - write a tutorial for opa gatekeeper.
 
 ## Credits
