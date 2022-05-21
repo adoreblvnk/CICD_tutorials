@@ -6,6 +6,15 @@ Learning Kubernetes from [Kubernetes Tutorial for Beginners](https://youtu.be/X4
 
 Kubernetes: Open source container orchestration tool.
 
+### Intro
+
+Watch the [Kubernetes Essentials from Google Cloud](https://www.youtube.com/playlist?list=PLIivdWyY5sqLmnGdKSdQIXq2sd_1bWSnx) playlist for a quick introduction to Kubernetes.
+
+You should get an overview of the following:
+
+- Problems Kuberetes Solves
+- Pods & Containers
+
 ### Main K8s Components
 
 **Pod**
@@ -13,7 +22,7 @@ Kubernetes: Open source container orchestration tool.
 ![](assets/pods_containers.png)
 
 - Smallest unit of K8s.
-- Abstraction over container.
+- Abstraction over container(s).
 - <mark>1 application per Pod</mark>.
 - Each Pod has its IP address.
 - New IP address upon re-creation.
