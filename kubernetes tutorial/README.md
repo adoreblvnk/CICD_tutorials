@@ -41,21 +41,16 @@ You should get an overview of the following:
 
 A Pod is a collection of multiple containers (eg 1 or more apps that are run together). It's an abstraction over container(s).
 
-- Each Pod has its IP address.
-- New IP address upon re-creation.
-
 **Service**
 
-![](assets/service_ingress.png)
+![](assets/service.png)
 
-- Permanent IP address attached to Pod.
-- **External Service**
-  - Accessible outside K8s.
-- **Internal Service**
-  - Accessible only by K8s.
-- **Ingress**
-  - Routes traffic into cluster.
-  - External Requests → Ingress → External Service
+Creates an endpoint that can be used to access Pods. Each Pod has its own IP address, & the Service automatically update its list of endpoints to target the Pod. If there are multiple Nodes, the Service load balances incoming traffic. 
+
+Types of Services:
+
+- **External Service**: Endpoints are accessible outside K8s.
+- **Internal Service**: Endpoints are accessible only inside K8s.
 
 **ConfigMap**: Setting configuration data (eg env var).
 
@@ -65,13 +60,12 @@ A Pod is a collection of multiple containers (eg 1 or more apps that are run tog
 
 **Volumes**: Storage for data persistence. K8s doesn't manage data persistence.
 
-![](assets/deployment_statefulset.png)
-
 **Deployment**
 
-- Blueprint for Pods.
-- Abstraction over Pods.
-- You interact with Deployments, not Pods.
+![](assets/deployment.png)
+
+Abstraction over Pods that manages a Pod's lifecycle (eg controls amount of replicas, tells K8s to schedule another replica if the the current Node crashes). Pods are typically configured via Deployments, so Pods are not directly interacted with. 
+
 - For <mark>stateless apps</mark>.
 
 **StatefulSet**
