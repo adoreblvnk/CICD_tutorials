@@ -2,6 +2,26 @@
 
 Learning Kubernetes from [Kubernetes Tutorial for Beginners](https://youtu.be/X48VuDVv0do). Special thanks to Nanuchi for creating the course.
 
+## Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [Content](#content)
+  - [Intro](#intro)
+  - [Main K8s Components](#main-k8s-components)
+  - [K8s Architecture](#k8s-architecture)
+  - [Installing minikube & kubectl](#installing-minikube--kubectl)
+  - [K8s Config File](#k8s-config-file)
+  - [Deploying MongoDB & MongoExpress _[Practical]_](#deploying-mongodb--mongoexpress-practical)
+  - [K8s Namespace](#k8s-namespace)
+  - [K8s Ingress](#k8s-ingress)
+  - [Helm](#helm)
+  - [K8s Volumes](#k8s-volumes)
+  - [StatefulSet](#statefulset)
+- [Kubectl Commands](#kubectl-commands)
+  - [K8s Resource Shortnames](#k8s-resource-shortnames)
+  - [Tips](#tips)
+- [Credits](#credits)
+
 ## Content
 
 Kubernetes: Open source container orchestration tool.
@@ -354,13 +374,13 @@ Helm is a package manager of K8s, similar to apt, yum, or brew. Helm packages YA
 **Deploy Helm Files**
 
 - Normal deployment.
-   ```
-   helm install <chartname>
-   ```
+  ```
+  helm install <chartname>
+  ```
 - Use alternate values.
-   ```
-   helm install --values=<values_v2.yaml> <chartname>
-   ```
+  ```
+  helm install --values=<values_v2.yaml> <chartname>
+  ```
 
 ### K8s Volumes
 
@@ -410,9 +430,32 @@ Only Master Pod can read & write, & worker Pods can <mark>only</mark> read. Work
 1. Predictable Pod Name
 2. Fixed Individual DNS Name
 
+## Kubectl Commands
+
+Useful `kubectl` commands. Concise version of [kubectl-commands](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands) To be updated.
+
+### K8s Resource Shortnames
+
+|         Resource          | Shortname |
+| :-----------------------: | :-------: |
+|         ConfigMap         |    cm     |
+|         Namespace         |    ns     |
+|           Nodes           |    no     |
+|     PersistentVolume      |    pv     |
+|   PersistentVolumeClaim   |    pvc    |
+|            Pod            |    po     |
+|          Service          |    svc    |
+| CustomResourceDefinitions |    crd    |
+|        Deployments        |  deploy   |
+|        ReplicaSets        |    rs     |
+|       StatefulSets        |    sts    |
+|         CronJobs          |    cj     |
+|      NetworkPolicies      |  netpol   |
+
 ### Tips
 
-
+1. `alias k=kubectl`: Alias for `kubectl`.
+2. `alias kc='k config view --minify | grep name'`: List all configured contexts & namespaces.
 
 ## Credits
 
