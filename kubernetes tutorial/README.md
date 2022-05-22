@@ -2,9 +2,8 @@
 
 Learning Kubernetes from [Kubernetes Tutorial for Beginners](https://youtu.be/X48VuDVv0do). Special thanks to Nanuchi for creating the course.
 
-## Table of Contents
+## Table of Contents <!-- omit in toc -->
 
-- [Table of Contents](#table-of-contents)
 - [Content](#content)
   - [Intro](#intro)
   - [Main K8s Components](#main-k8s-components)
@@ -20,7 +19,6 @@ Learning Kubernetes from [Kubernetes Tutorial for Beginners](https://youtu.be/X4
 - [Kubectl Commands](#kubectl-commands)
   - [K8s Resource Shortnames](#k8s-resource-shortnames)
   - [Tips](#tips)
-- [Credits](#credits)
 
 ## Content
 
@@ -32,7 +30,7 @@ Watch the [Kubernetes Essentials from Google Cloud](https://www.youtube.com/play
 
 You should get an overview of the following:
 
-- Problems Kuberetes Solves
+- Problems Kubernetes Solves
 - Pods & Containers
 
 ### Main K8s Components
@@ -41,9 +39,8 @@ You should get an overview of the following:
 
 ![](assets/pods_containers.png)
 
-- Smallest unit of K8s.
-- Abstraction over container(s).
-- <mark>1 application per Pod</mark>.
+A Pod is a collection of multiple containers (eg 1 or more apps that are run together). It's an abstraction over container(s).
+
 - Each Pod has its IP address.
 - New IP address upon re-creation.
 
@@ -457,7 +454,7 @@ Useful `kubectl` commands. Concise version of [kubectl-commands](https://kuberne
 1. `alias k=kubectl`: Alias for `kubectl`.
 2. `alias kc='k config view --minify | grep name'`: List all configured contexts & namespaces.
 
-## Credits
+## Credits <!-- omit in toc -->
 
 - prod by blvnk.
 - [TechWorld with Nana](https://twitter.com/Njuchi_)
