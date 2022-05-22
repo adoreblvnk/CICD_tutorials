@@ -82,23 +82,29 @@ A Pod is a collection of multiple containers (eg 1 or more apps that are run tog
 
 **Node**
 
-![](assets/node_processes.png)
+![](assets/node.png)
 
-- Cluster service that does the actual work.
-- Each Node has multiple Pods.
-- <mark>3 processes</mark> must be on every Node.
-  1.  **Container Runtime** (eg Docker)
-  2.  **Kubelet**: Interacts between Container Runtime & Node.
-  3.  **Kube Proxy**: Network proxy that forwards requests <mark>intelligently</mark>.
+A Node is a virtual or physical machine that workloads are run on.
 
-**Master Nodes**
+Nodes are comprised of:
 
-- Manages processes.
-- <mark>4 processes</mark> that run on every Master Node:
-  1. **API Server**: Acts as cluster gateway into the cluster.
-  2. **Scheduler**: After API Server validates request, Scheduler forwards request to appropriate Node.
-  3. **Controller Manager**: Detects cluster state changes (eg Node dies) & recovers cluster state if anything is wrong.
-  4. **etcd**: Key-value store for critical info (eg config data, state data, & metadata).
+1. **Container Runtime**: Runs containers.
+2. **Kubelet**: Makes sure everything is running.
+3. **Kube-Proxy**: Handles networking.
+
+**Control Plane (Master Nodes)**
+
+![](assets/control_plane.png)
+
+Kubernetes manages the cluster via the Control Plane via exposing the API. 
+
+Components in the Control Plane:
+
+1. **API Server**: Handles data validation & configuration of API objects.
+2. **etcd**: Key-value store for important cluster data.
+3. **Scheduler**: Makes decisions where Pods are run (eg looks at available resources & schedules a Pod to a Node that can handle it).
+4. **Controller Manager**: Handles core K8s logic (eg lifecycle management, which makes sure all resources are working correctly).
+5. **Cloud Controller Manager**: Lets K8s link to cloud providers.
 
 ### Installing minikube & kubectl
 
