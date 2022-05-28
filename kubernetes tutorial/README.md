@@ -26,7 +26,7 @@ Kubernetes: Open source container orchestration tool.
 
 ### Intro
 
-Watch the [Kubernetes Essentials from Google Cloud](https://www.youtube.com/playlist?list=PLIivdWyY5sqLmnGdKSdQIXq2sd_1bWSnx) playlist for a quick introduction to Kubernetes.
+Watch videos 1-4 [Kubernetes Essentials from Google Cloud](https://www.youtube.com/playlist?list=PLIivdWyY5sqLmnGdKSdQIXq2sd_1bWSnx) playlist for a quick introduction to Kubernetes.
 
 You should get an overview of the following:
 
@@ -45,7 +45,7 @@ A Pod is a collection of multiple containers (eg 1 or more apps that are run tog
 
 ![](assets/service.png)
 
-Creates an endpoint that can be used to access Pods. Each Pod has its own IP address, & the Service automatically update its list of endpoints to target the Pod. If there are multiple Nodes, the Service load balances incoming traffic. 
+Creates an endpoint that can be used to access Pods. Each Pod has its own IP address, & the Service automatically update its list of endpoints to target the Pod. If there are multiple Nodes, the Service load balances incoming traffic.
 
 Types of Services:
 
@@ -64,7 +64,7 @@ Types of Services:
 
 ![](assets/deployment.png)
 
-Abstraction over Pods that manages a Pod's lifecycle (eg controls amount of replicas, tells K8s to schedule another replica if the the current Node crashes). Pods are typically configured via Deployments, so Pods are not directly interacted with. 
+Abstraction over Pods that manages a Pod's lifecycle (eg controls amount of replicas, tells K8s to schedule another replica if the the current Node crashes). Pods are typically configured via Deployments, so Pods are not directly interacted with.
 
 - For <mark>stateless apps</mark>.
 
@@ -90,7 +90,7 @@ Nodes are comprised of:
 
 ![](assets/control_plane.png)
 
-Kubernetes manages the cluster via the Control Plane via exposing the API. 
+Kubernetes manages the cluster via the Control Plane via exposing the API.
 
 Components in the Control Plane:
 
@@ -107,61 +107,85 @@ Components in the Control Plane:
 
 #### Basic minikube Commands
 
-```
-minikube start [--driver driver_name]
-```
+    minikube start [--driver driver_name]
 
 Starts a local Kubernetes cluster. Driver specifies which driver to run K8s in.
 
-```
-minikube status
-minikube stop
-minikube delete
-```
+    minikube status
+    minikube stop
+    minikube delete
 
 #### Basic kubectl Commands
 
-    kubectl get nodes
-    kubectl get pod [-o wide]
-    kubectl get services
-    kubectl get deployment
-    kubectl get replicaset
+**get**
 
-_Note: Wide output prints more info (eg IP address)._
+List 1 or more resources.
 
-![](assets/abstractions.png)
+    kubectl get <type> <name> <flags>
 
-Kubernetes manages from ReplicaSet to Containers. We manage Deployments.
+- Required:
+  - `type`: Type of resource. See [K8s Resource Shortnames](#k8s-resource-shortnames) for resource type examples.
+- Options:
+  - `name`: Name of resource of relevant resource type.
+  - `flags`:
+    - `-o <format>`: Output format (eg `yaml`, `json`).
+    - `-l <label>`: Selector. Filter by label.
+    - `-A`: Select all resources from all namespaces.
 
-**Debugging Pods**
+_TIP: Use `grep` for additional filters._
 
-```
-kubectl logs [pod_name]
-kubectl describe pod [pod_name]
-```
+**api-resources**
 
-Prints Pod logs. Use `describe` for detailed info (eg status).
+List all available API resources & shortnames.
 
-```
-kubectl exec -it [pod_name] /bin/bash
-```
+      kubectl api-resources
 
-Enter the CLI of a container.
+**delete**
 
-**Delete Deployment**
+Deletes 1 or more resources.
 
-```
-kubectl delete deployment [deployment]
-```
+    kubectl delete <type> <name> <flags>
 
-**Config Files**
+- Required:
+  - `type`: Type of resource.
+- Options:
+  - `name`: Name of resource of relevant resource type.
+  - `flags`:
+    - `-f <file_name>`: Filename of resource to delete.
+    - `-grace-period <seconds>`: Time to wait before deleting resources. Set to 1 for immediate deletion.
+    - `-o <format>`: Output format (eg `yaml`, `json`).
+    - `-A`: Select all resources from all namespaces.
 
-```
-kubectl apply -f [file]
-kubectl delete -f [file]
-```
+**apply**
 
-Creates Deployment. If it exists, it updates Deployment. Config Files can be used for Volumes & Services.
+Apply a configuration to a resource by file (eg `yaml` files). Creates resources if they don't exist, updates resources if they do. This is the recommended way of managin K8s applications.
+
+      kubectl apply -f <file_name>
+
+- Required:
+  - `file_name`: Filename of resource to apply. Can be stacked (eg `-f <file_name> -f <file_name_1>`).
+
+#### Debugging Commands
+
+**explain**
+
+    kubectl explain <resource>
+
+In-depth explanation of a resource. Can also be used for resource fields.
+
+**logs**
+
+    kubectl logs <pod_name>
+
+**describe**
+
+    kubectl describe pod <pod_name>
+
+**exec -it**
+
+    kubectl exec -it <pod_name> /bin/bash
+
+Enter the container.
 
 ### K8s Config File
 
