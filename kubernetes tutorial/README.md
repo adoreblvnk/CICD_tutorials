@@ -1,10 +1,11 @@
 # Kubernetes Tutorial
 
+Kubernetes: Open source container orchestration tool.
+
 Learning Kubernetes from [Kubernetes Tutorial for Beginners](https://youtu.be/X48VuDVv0do). Special thanks to Nanuchi for creating the course.
 
 ## Table of Contents <!-- omit in toc -->
 
-- [Content](#content)
 - [Intro](#intro)
 - [Main K8s Components](#main-k8s-components)
 - [Kubectl Commands](#kubectl-commands)
@@ -18,10 +19,6 @@ Learning Kubernetes from [Kubernetes Tutorial for Beginners](https://youtu.be/X4
   - [K8s Volumes](#k8s-volumes)
   - [StatefulSet](#statefulset)
   - [Tips](#tips)
-
-## Content
-
-Kubernetes: Open source container orchestration tool.
 
 ## Intro
 
