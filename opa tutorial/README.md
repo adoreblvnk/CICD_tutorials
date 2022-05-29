@@ -146,7 +146,7 @@ content = result {
 
 A Policy Decision is the value of the variable. This is typically used for enforcing policies.
 
-## (Practical) Rego Rules
+## [Practical] Rego Rules
 
 Follow the [practical tutorial](https://academy.styra.com/courses/take/opa-rego/texts/23090465-section-1-getting-started) for verbose info.
 

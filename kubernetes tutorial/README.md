@@ -10,15 +10,14 @@ Learning Kubernetes from [Kubernetes Tutorial for Beginners](https://youtu.be/X4
 - [Main K8s Components](#main-k8s-components)
 - [Kubectl Commands](#kubectl-commands)
   - [Debugging Commands](#debugging-commands)
-- [Installing minikube](#installing-minikube)
-  - [Basic minikube Commands](#basic-minikube-commands)
-- [Deploying MongoDB & MongoExpress _[Practical]_](#deploying-mongodb--mongoexpress-practical)
+- [minikube](#minikube)
+- [[Practical] Deploying MongoDB & MongoExpress](#practical-deploying-mongodb--mongoexpress)
 - [Extras](#extras)
   - [K8s Ingress](#k8s-ingress)
   - [Helm](#helm)
   - [K8s Volumes](#k8s-volumes)
   - [StatefulSet](#statefulset)
-  - [Tips](#tips)
+- [Tips](#tips)
 
 ## Intro
 
@@ -227,12 +226,12 @@ Access CLI of a container.
 
 Gets entire configuration of Deployment & output is in YAML format.
 
-## Installing minikube
+## minikube
 
 - [minikube](https://minikube.sigs.k8s.io/docs/start/)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/) (also in Docker)
 
-### Basic minikube Commands
+**minikube Commands**
 
 Starts a local Kubernetes cluster. Driver specifies which driver to run K8s in.
 
@@ -241,7 +240,7 @@ Starts a local Kubernetes cluster. Driver specifies which driver to run K8s in.
     minikube stop
     minikube delete
 
-## Deploying MongoDB & MongoExpress _[Practical]_
+## [Practical] Deploying MongoDB & MongoExpress
 
 **Browser Request Flow**
 
@@ -446,7 +445,7 @@ Only Master Pod can read & write, & worker Pods can <mark>only</mark> read. Work
 1. Predictable Pod Name
 2. Fixed Individual DNS Name
 
-### Tips
+## Tips
 
 1. `alias k=kubectl`: Alias for `kubectl`.
 2. `alias kc='k config view --minify | grep name'`: List all configured contexts & namespaces.

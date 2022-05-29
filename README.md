@@ -15,16 +15,17 @@ It is recommended to start with Docker, then Kubernetes.
 
 ### [Kubernetes](kubernetes%20tutorial/README.md) (w/ Practical)
 
-- Learn about main K8s components.
-- Learn about K8s architecture.
-- Learn how to use minikube & kubectl.
-- Create & configure K8s YAML files.
-- Deploy MongoDB with MongoExpress frontend.
-- Learn about Namespaces.
-- Learn about Ingress & how to configure security.
-- Use Helm, the package manager for K8s.
-- Learn K8s volumes for persistent storage.
-- Learn about K8s StatefulSet for stateless applications. 
+- Main K8s Components
+- Kubectl Commands
+- Debugging Commands
+- minikube
+- [Practical] Deploying MongoDB & MongoExpress
+- Extras
+  - K8s Ingress
+  - Helm
+  - K8s Volumes
+  - StatefulSet
+- Tips
 
 ### [Istio](istio%20tutorial/README.md) (w/ Practical)
 
