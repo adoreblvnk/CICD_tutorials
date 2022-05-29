@@ -5,74 +5,40 @@ Learning Kubernetes from [Kubernetes Tutorial for Beginners](https://youtu.be/X4
 ## Table of Contents <!-- omit in toc -->
 
 - [Content](#content)
-  - [Intro](#intro)
-  - [Main K8s Components](#main-k8s-components)
-  - [K8s Architecture](#k8s-architecture)
-  - [Installing minikube & kubectl](#installing-minikube--kubectl)
-  - [K8s Config File](#k8s-config-file)
-  - [Deploying MongoDB & MongoExpress _[Practical]_](#deploying-mongodb--mongoexpress-practical)
-  - [K8s Namespace](#k8s-namespace)
+- [Intro](#intro)
+- [Main K8s Components](#main-k8s-components)
+- [Kubectl Commands](#kubectl-commands)
+  - [Debugging Commands](#debugging-commands)
+- [Installing minikube](#installing-minikube)
+  - [Basic minikube Commands](#basic-minikube-commands)
+- [Deploying MongoDB & MongoExpress _[Practical]_](#deploying-mongodb--mongoexpress-practical)
+- [Extras](#extras)
   - [K8s Ingress](#k8s-ingress)
   - [Helm](#helm)
   - [K8s Volumes](#k8s-volumes)
   - [StatefulSet](#statefulset)
-- [Kubectl Commands](#kubectl-commands)
-  - [K8s Resource Shortnames](#k8s-resource-shortnames)
   - [Tips](#tips)
 
 ## Content
 
 Kubernetes: Open source container orchestration tool.
 
-### Intro
+## Intro
 
-Watch videos 1-4 [Kubernetes Essentials from Google Cloud](https://www.youtube.com/playlist?list=PLIivdWyY5sqLmnGdKSdQIXq2sd_1bWSnx) playlist for a quick introduction to Kubernetes.
+Watch videos 1-4, 6 [Kubernetes Essentials from Google Cloud](https://www.youtube.com/playlist?list=PLIivdWyY5sqLmnGdKSdQIXq2sd_1bWSnx) playlist for a quick introduction to Kubernetes.
 
 You should get an overview of the following:
 
 - Problems Kubernetes Solves
 - Pods & Containers
 
-### Main K8s Components
+## Main K8s Components
 
 **Pod**
 
 ![](assets/pods_containers.png)
 
 A Pod is a collection of multiple containers (eg 1 or more apps that are run together). It's an abstraction over container(s).
-
-**Service**
-
-![](assets/service.png)
-
-Creates an endpoint that can be used to access Pods. Each Pod has its own IP address, & the Service automatically update its list of endpoints to target the Pod. If there are multiple Nodes, the Service load balances incoming traffic.
-
-Types of Services:
-
-- **External Service**: Endpoints are accessible outside K8s.
-- **Internal Service**: Endpoints are accessible only inside K8s.
-
-**ConfigMap**: Setting configuration data (eg env var).
-
-**Secret**: ConfigMap but base64 encoded.
-
-![](assets/volumes.png)
-
-**Volumes**: Storage for data persistence. K8s doesn't manage data persistence.
-
-**Deployment**
-
-![](assets/deployment.png)
-
-Abstraction over Pods that manages a Pod's lifecycle (eg controls amount of replicas, tells K8s to schedule another replica if the the current Node crashes). Pods are typically configured via Deployments, so Pods are not directly interacted with.
-
-- For <mark>stateless apps</mark>.
-
-**StatefulSet**
-
-- Like Deployment but for <mark>stateful databases</mark>.
-
-### K8s Architecture
 
 **Node**
 
@@ -100,22 +66,53 @@ Components in the Control Plane:
 4. **Controller Manager**: Handles core K8s logic (eg lifecycle management, which makes sure all resources are working correctly).
 5. **Cloud Controller Manager**: Lets K8s link to cloud providers.
 
-### Installing minikube & kubectl
+**Service**
 
-- [minikube](https://minikube.sigs.k8s.io/docs/start/)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/) (also in Docker)
+![](assets/service.png)
 
-#### Basic minikube Commands
+Creates an endpoint that can be used to access Pods. Each Pod has its own IP address, & the Service automatically updates its list of endpoints to target the Pod. If there are multiple Nodes, the Service load balances incoming traffic.
 
-    minikube start [--driver driver_name]
+Types of Services:
 
-Starts a local Kubernetes cluster. Driver specifies which driver to run K8s in.
+- **External Service**: Endpoints are accessible outside K8s.
+- **Internal Service**: Endpoints are accessible only inside K8s.
 
-    minikube status
-    minikube stop
-    minikube delete
+**Deployment**
 
-#### Basic kubectl Commands
+![](assets/deployment.png)
+
+Abstraction over Pods that manages a Pod's lifecycle (eg controls amount of replicas, tells K8s to schedule another replica if the the current Node crashes). Pods are typically configured via Deployments, so Pods are not directly interacted with.
+
+- For <mark>stateless apps</mark>.
+
+**StatefulSet**
+
+- Like Deployment but for <mark>stateful databases</mark>.
+
+**ConfigMap**: Stores non-confidential data (key-value pairs). Stored in etcd.
+
+**Secret**: Stores small amount of sensitive data (eg passwords, tokens). Stored in etcd.
+
+**Volumes**: Storage for data persistence. K8s doesn't manage data persistence.
+
+**Namespaces**
+
+Isolates groups of resources within a cluster. Provides logical separation.
+
+Kubernetes provides 4 default Namespaces:
+
+1. **kube-system**: system processes.
+2. **kube-public**: publicly accessible data (no authentication required).
+3. **kube-node-lease**: determines availability of a node.
+4. **default**
+
+Namespace Characteristics:
+
+- Resources cannot be accessed from another Namespace (eg ConfigMap / Secret).
+- Services are <mark>shared</mark> across Namespaces.
+- Volumes & Nodes are created outside of Namespaces.
+
+## Kubectl Commands
 
 **get**
 
@@ -128,7 +125,7 @@ List 1 or more resources.
 - Options:
   - `name`: Name of resource of relevant resource type.
   - `flags`:
-    - `-o <format>`: Output format (eg `yaml`, `json`).
+    - `-o <format>`: Output format (eg `yaml`, `json`, `wide`).
     - `-l <label>`: Selector. Filter by label.
     - `-A`: Select all resources from all namespaces.
 
@@ -138,7 +135,7 @@ _TIP: Use `grep` for additional filters._
 
 List all available API resources & shortnames.
 
-      kubectl api-resources
+    kubectl api-resources
 
 **delete**
 
@@ -153,7 +150,7 @@ Deletes 1 or more resources.
   - `flags`:
     - `-f <file_name>`: Filename of resource to delete.
     - `-grace-period <seconds>`: Time to wait before deleting resources. Set to 1 for immediate deletion.
-    - `-o <format>`: Output format (eg `yaml`, `json`).
+    - `-o <format>`: Output format (eg `yaml`, `json`, `wide`).
     - `-A`: Select all resources from all namespaces.
 
 **apply**
@@ -165,29 +162,40 @@ Apply a configuration to a resource by file (eg `yaml` files). Creates resources
 - Required:
   - `file_name`: Filename of resource to apply. Can be stacked (eg `-f <file_name> -f <file_name_1>`).
 
-#### Debugging Commands
+### Debugging Commands
 
 **explain**
 
-    kubectl explain <resource>
+Get documentation of the resource & its fields.
 
-In-depth explanation of a resource. Can also be used for resource fields.
+    kubectl explain <resource>
 
 **logs**
 
-    kubectl logs <pod_name>
+Logs events from containers & stores inside a pod.
+
+    kubectl logs <pod_name> <flags>
+
+- Options:
+  - `flags`:
+    - `-p`: Print logs for previous instance of the container.
 
 **describe**
 
-    kubectl describe pod <pod_name>
+Check resource state & events. Commonly used for pods.
+
+    kubectl describe <type> <name>
 
 **exec -it**
 
-    kubectl exec -it <pod_name> /bin/bash
+Access CLI of a container.
 
-Enter the container.
+    kubectl exec -it <pod_name> <shell>
 
-### K8s Config File
+- Options:
+  - `shell`: Shell to run (eg `/bin/bash`).
+
+**K8s Config File**
 
 <mark>3 parts</mark> of a Config File
 
@@ -222,7 +230,21 @@ Enter the container.
 
 Gets entire configuration of Deployment & output is in YAML format.
 
-### Deploying MongoDB & MongoExpress _[Practical]_
+## Installing minikube
+
+- [minikube](https://minikube.sigs.k8s.io/docs/start/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/) (also in Docker)
+
+### Basic minikube Commands
+
+Starts a local Kubernetes cluster. Driver specifies which driver to run K8s in.
+
+    minikube start [--driver driver_name]
+    minikube status
+    minikube stop
+    minikube delete
+
+## Deploying MongoDB & MongoExpress _[Practical]_
 
 **Browser Request Flow**
 
@@ -271,31 +293,7 @@ Browser → External Service (Mongo Express) → Pod (Mongo Express) → Interna
     minikube service mongo-express-service
     ```
 
-### K8s Namespace
-
-Namespaces allow for isolating groups of resources within a single cluster.
-
-Kubernetes provides 4 default Namespaces:
-
-1. **kube-system**: system processes.
-2. **kube-public**: publicly accessible data (no authentication required).
-3. **kube-node-lease**: determines availability of a node.
-4. **default**
-
-Why use Namespaces?
-
-1. To group resources.
-2. Prevent conflicts withing multiple teams developing the same application.
-3. Resource sharing between staging & development.
-   - Reuse some components.
-4. Resource sharing between blue / green deployment.
-5. Resource access & limits within Namespace.
-
-Namespace Characteristics:
-
-- You can't access most resources from another Namespace (eg ConfigMap / Secret).
-- Services are <mark>shared</mark> across Namespaces.
-- Volumes & Nodes <mark>cannot be created inside of Namespaces</mark>.
+## Extras
 
 ### K8s Ingress
 
@@ -451,32 +449,26 @@ Only Master Pod can read & write, & worker Pods can <mark>only</mark> read. Work
 1. Predictable Pod Name
 2. Fixed Individual DNS Name
 
-## Kubectl Commands
-
-Useful `kubectl` commands. Concise version of [kubectl-commands](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands) To be updated.
-
-### K8s Resource Shortnames
-
-|         Resource          | Shortname |
-| :-----------------------: | :-------: |
-|         ConfigMap         |    cm     |
-|         Namespace         |    ns     |
-|           Nodes           |    no     |
-|     PersistentVolume      |    pv     |
-|   PersistentVolumeClaim   |    pvc    |
-|            Pod            |    po     |
-|          Service          |    svc    |
-| CustomResourceDefinitions |    crd    |
-|        Deployments        |  deploy   |
-|        ReplicaSets        |    rs     |
-|       StatefulSets        |    sts    |
-|         CronJobs          |    cj     |
-|      NetworkPolicies      |  netpol   |
-
 ### Tips
 
 1. `alias k=kubectl`: Alias for `kubectl`.
 2. `alias kc='k config view --minify | grep name'`: List all configured contexts & namespaces.
+3. K8s Resource Shortnames
+   - |         Resource          | Shortname |
+     | :-----------------------: | :-------: |
+     |         ConfigMap         |    cm     |
+     |         Namespace         |    ns     |
+     |           Nodes           |    no     |
+     |     PersistentVolume      |    pv     |
+     |   PersistentVolumeClaim   |    pvc    |
+     |            Pod            |    po     |
+     |          Service          |    svc    |
+     | CustomResourceDefinitions |    crd    |
+     |        Deployments        |  deploy   |
+     |        ReplicaSets        |    rs     |
+     |       StatefulSets        |    sts    |
+     |         CronJobs          |    cj     |
+     |      NetworkPolicies      |  netpol   |
 
 ## Credits <!-- omit in toc -->
 
