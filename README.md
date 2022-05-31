@@ -1,6 +1,6 @@
 # CICD tutorials
 
-A list of tutorials for CI/CD tools for devops. Special thanks to [TechWorld with Nana](https://www.youtube.com/c/TechWorldwithNana) for these tutorial videos.
+A list of tutorials for CI/CD tools for DevOps.
 
 ## Content
 
@@ -63,7 +63,7 @@ It is recommended to start with Docker, then Kubernetes.
 - How ArgoCD Works
 - ArgoCD-as-Code
 - Multi-Cluster Usage
-- Practical
+- [Practical] Deploying ArgoCD in K8s
   - Installing ArgoCD
   - Configuring ArgoCD
   - Test Changes
