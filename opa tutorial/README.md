@@ -312,3 +312,7 @@ Follow the [practical tutorial](https://academy.styra.com/courses/take/opa-rego/
      }
    }
    ```
+
+## Credits <!-- omit in toc -->
+
+- blvnk

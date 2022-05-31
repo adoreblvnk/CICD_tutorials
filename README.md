@@ -61,9 +61,12 @@ It is recommended to start with Docker, then Kubernetes.
 
 - CD Workflow with ArgoCD
 - How ArgoCD Works
-- Configuring ArgoCD
+- ArgoCD-as-Code
 - Multi-Cluster Usage
-- Practical: Deploying ArgoCD in K8s cluster.
+- Practical
+  - Installing ArgoCD
+  - Configuring ArgoCD
+  - Test Changes
 
 ### [OPA (Open Policy Agent)](opa%20tutorial/README.md) (w/ Practical)
 
@@ -74,11 +77,12 @@ It is recommended to start with Docker, then Kubernetes.
 
 ## TODO:
 
-- add banner to README.
-- reformat unit testing / add docs.
-- reformat .gitignore.
-- finish base OPA tutorial.
-- write a tutorial for opa gatekeeper.
+- [ ] revamp Istio tutori
+- [ ] add banner to README.
+- [ ] ~~reformat unit testing / add docs.~~
+- [x] reformat .gitignore.
+- [x] finish base OPA tutorial.
+- [ ] write a tutorial for opa gatekeeper.
 
 ## Credits
 

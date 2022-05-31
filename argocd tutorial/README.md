@@ -1,10 +1,21 @@
 # ArgoCD Tutorial
 
+<img src="img/argocd.png" width=300>
+
 Learning ArgoCD from [ArgoCD Tutorial for Beginners](https://youtu.be/MeU5_k9ssrs). Special thanks to Nanuchi for creating the course.
 
-## Content
+## Table of Contents <!-- omit in toc -->
 
-### CD Workflow with ArgoCD
+- [CD Workflow with ArgoCD](#cd-workflow-with-argocd)
+- [How ArgoCD Works](#how-argocd-works)
+- [ArgoCD-as-Code](#argocd-as-code)
+- [Multi-Cluster Usage](#multi-cluster-usage)
+- [Practical](#practical)
+  - [Installing ArgoCD](#installing-argocd)
+  - [Configuring ArgoCD](#configuring-argocd)
+  - [Test Changes](#test-changes)
+
+## CD Workflow with ArgoCD
 
 1. Deploy ArgoCD in K8s cluster.
 2. Configure ArgoCD to track Git repo.
@@ -25,13 +36,13 @@ _NOTE: ArgoCD does **not** replace CI pipelines such as Jenkins, but separates C
 
 **K8s Access Control**: ArgoCD runs in the cluster, hence no external cluster access needs to be granted (eg Jenkins).
 
-### How ArgoCD Works
+## How ArgoCD Works
 
 **ArgoCD as K8s Extension**: This means ArgoCD uses existing K8s functions & components (eg using K8s controllers for monitoring actual & desired state, using etcd to store data).
 
 ![](img/argocd_diagram.png)
 
-### Configuring ArgoCD
+## ArgoCD-as-Code
 
 Configure ArgoCD as K8s YAML file. Filename is `application.yaml` & CRD is `Application`.
 
@@ -68,7 +79,7 @@ spec:
 
 **Projects**: Provides logical grouping of applications (eg if they belong together). CRD is `AppProject`.
 
-### Multi-Cluster Usage
+## Multi-Cluster Usage
 
 ![](img/multi-cluster.png)
 
@@ -80,7 +91,7 @@ Different clusters can be used for different purposes (eg development, staging, 
 
 Kustomize is a tool that modifes Kubernetes manifest without forking. By overlaying the base folder with Kustomize, the base manifests can be modified by the specific kustomization files. In the example shown, in the production cluster, ArgoCD would pull the base folder & the `overlays/production` folder.
 
-### Practical
+## Practical
 
 **Prerequisites**
 
@@ -93,7 +104,7 @@ Kustomize is a tool that modifes Kubernetes manifest without forking. By overlay
 - K8s Cluster
   - Empty Minikube cluster.
 
-#### Installing ArgoCD
+### Installing ArgoCD
 
     kubectl create namespace argocd
     kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
@@ -118,7 +129,7 @@ Upon reaching ArgoCD UI, the credentials to login are: `admin`. The password is 
 
     kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
 
-#### Configuring ArgoCD
+### Configuring ArgoCD
 
 **Creating ArgoCD Application Config**
 
@@ -159,7 +170,7 @@ The full config parameters are listed [here](https://argo-cd.readthedocs.io/en/s
 
 Go to ArgoCD UI to view the newly deployed application.
 
-#### Test Changes
+### Test Changes
 
 Modify `dev/deployment.yaml` image as per following & push the changes.
 
@@ -178,7 +189,7 @@ metadata:
 
 Notice that ArgoCD creates a new deployment & deletes the old one.
 
-## Credits
+## Credits <!-- omit in toc -->
 
 - prod by blvnk.
 - [TechWorld with Nana](https://twitter.com/Njuchi_)

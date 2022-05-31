@@ -8,10 +8,6 @@ Jenkins allows developers to <mark>continuously</mark> build, test, & deploy the
 
 **Why Use Jenkinsfile?**: Instead of creating new jobs for Jenkins via GUI, Jenkinsfile is a pipeline as a code. A pipeline is a process of deploying source code from repo to production.
 
-## Practical: Create Jenkinsfile to Build & Deploy App
-
-The [demo app](../docker%20tutorial/README.md) from Docker tutorial will be used. All code files wil be located there.
-
 ## Jenkins Concepts
 
 **Pipeline**: This is a user-defined model of a build, test and deploy process for a project.
@@ -19,6 +15,10 @@ The [demo app](../docker%20tutorial/README.md) from Docker tutorial will be used
 **Node**: A machine that the Jenkins Controller executes pipeline jobs on.
 
 **Stage**: A logical grouping of jobs that are executed in sequence, usually categorized into "build", "test", & "deploy" stages.
+
+## Practical: Create Jenkinsfile to Build & Deploy App
+
+The [demo app](../docker%20tutorial/README.md) from Docker tutorial will be used. All code files wil be located there.
 
 ### Step 1: Create Jenkinsfile
 
@@ -292,7 +292,7 @@ Runs a shell script (ie `sh`). Advanced syntax with options.
 Trigger a build of another job.
 
 - `job_name`: Job to be triggered. Use `step[<job_name>]` to trigger a build step.
-- `parameters`: 
+- `parameters`:
   - From [Pipeline: Build Step](https://www.jenkins.io/doc/pipeline/steps/pipeline-build-step/).
 - `<propagate_build>`:
   - `true`: (Default) Result of this step will be that of the downstream build (ie are the same even & downstream build takes preference).
@@ -320,5 +320,5 @@ Trigger a build of another job.
 
 ## Credits
 
-- prod by blvnk.
+- blvnk
 - [TechWorld with Nana](https://twitter.com/Njuchi_)
