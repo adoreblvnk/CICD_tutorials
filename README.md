@@ -26,7 +26,7 @@ It is recommended to start with Docker, then Kubernetes.
 - Debugging Commands
 - minikube
 - [Practical] Deploying MongoDB & MongoExpress
-- Extras
+- Extra
   - K8s Ingress
   - Helm
   - K8s Volumes
