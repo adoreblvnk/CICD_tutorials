@@ -1,4 +1,10 @@
-# CICD tutorials
+<div align="center">
+    <h1>CICD Tutorials</h1> <!-- Title -->
+</div>
+
+---
+
+## About
 
 A list of tutorials for CI/CD tools for DevOps.
 
@@ -77,7 +83,7 @@ It is recommended to start with Docker, then Kubernetes.
 
 ## TODO:
 
-- [ ] revamp Istio tutori
+- [ ] revamp Istio tutorials.
 - [ ] add banner to README.
 - [ ] ~~reformat unit testing / add docs.~~
 - [x] reformat .gitignore.
