@@ -81,14 +81,11 @@ It is recommended to start with Docker, then Kubernetes.
 - Basic Rego Rules
 - Practical: Rego Rules & OPA Evaluation
 
-## TODO:
+## Roadmap
 
-- [ ] revamp Istio tutorials.
-- [ ] add banner to README.
-- [ ] ~~reformat unit testing / add docs.~~
-- [x] reformat .gitignore.
-- [x] finish base OPA tutorial.
-- [ ] write a tutorial for opa gatekeeper.
+- Remove practicals?
+  - Practicals have become increasingly verbose.
+- Add Cheat Sheet.
 
 ## Credits
 

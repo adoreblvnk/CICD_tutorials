@@ -1,163 +1,32 @@
-# Docker Tutorial
-
-![banner](https://i.imgur.com/rQVSCn6.png)
-
-Learning Docker with NodeJS from [Docker Tutorial for Beginners](https://youtu.be/3c-iBn73dDE). Forked from Nanuchi's [Docker demo](https://gitlab.com/nanuchi/techworld-js-docker-demo-app).
-
-## Content
-
-Deploying a NodeJS web app with MongoDB onto Docker with persistence.
+<div align="center">
+    <img src="https://i.imgur.com/rQVSCn6.png" width=100> <!-- Logo -->
+    <h1>Docker Tutorial</h1> <!-- Title -->
+</div>
 
 ---
 
-## Basic Commands
+<details>
+<summary>Table of Contents</summary>
 
-**Docker Pull**
+- [About](#about)
+- [Docker Command Cheat Sheet](#docker-command-cheat-sheet)
+  - [Info & Stats](#info--stats)
+  - [Run](#run)
+  - [Images](#images)
+  - [Containers](#containers)
+  - [Debugging](#debugging)
+  - [Image Transfer](#image-transfer)
+  - [Cleanup](#cleanup)
+- [Dockerfile Cheat Sheet](#dockerfile-cheat-sheet)
+- [Tips](#tips)
+- [Credits](#credits)
+</details>
 
-    docker pull <image>
+## About
 
-Pulls an image from a registry.
+Docker cheat sheets.
 
-**Docker Images**
-
-    docker images
-
-List all images.
-
-**Docker Run**
-
-    docker run <image> [OPTIONS]
-
-Runs a new container from an image.
-
-- Options:
-  - `-d`: Detached mode (ie. run in background).
-  - `--name`: Name of the container.
-  - `-e`: Set environment variables.
-  - `-p <host_port>:<container_port>`: Port binding. Binds host port to container port.
-    - This allows to run multiple instances of the same container port.
-
-_Tip: `docker run <image>:<tag>` = `docker pull <image>:<tag> && docker run <image>:<tag>`_
-
-**Docker Process Status**
-
-    docker ps [OPTIONS]
-
-Lists all running containers.
-
-- Options:
-  - `-a`: Show all containers.
-
-**Docker Start / Stop**
-
-    docker start <container_ID>
-    docker stop <container_ID>
-
-### Debugging
-
-**Docker Logs**
-
-    docker logs <container_ID>
-
-Fetches the logs of a container.
-
-**Docker Container Terminal**
-
-    docker exec -it <container_ID> /bin/bash
-
-Launch a interactive terminal in the container. Specify shell type with `/bin/bash`.
-
-## Practical: Basic Deployment of NodeJS Web App w/ Containers
-
-### Step 1: Pull the Image
-
-    docker pull mongo
-    docker pull mongo-express
-
-**Docker Network**
-
-![](https://i.imgur.com/v4WqyAp.png)
-
-Containers in the same network can communicate with each other automatically. With a network, configuring IP addresses / port number for each container is not necessary. External applications can connect to it using the IP address of the exposed container(s).
-
-**Docker Create Network**
-
-    docker network create <network_name>
-
-**Docker List Network**
-
-    docker network ls
-
-### Step: 2 Run MongoDB Containers
-
-**Run Mongo**
-
-    docker run ^
-      -d ^
-      -p 27017:27017 ^
-      -e MONGO_INITDB_ROOT_USERNAME=admin ^
-      -e MONGO_INITDB_ROOT_PASSWORD=password ^
-      --name mongodb ^
-      --net mongo-network ^
-      mongo
-
-Docker will run the container in detached mode on port 27017 with respective environment variables. The container will be named `mongodb`. The container will be connected to the network `mongo-network`. Environment variable names are found in [MongoDB Docker docs](https://hub.docker.com/_/mongo).
-
-**Run MongoExpress UI**
-
-    docker run ^
-      -d ^
-      -p 8081:8081 ^
-      -e ME_CONFIG_MONGODB_ADMINUSERNAME=admin ^
-      -e ME_CONFIG_MONGODB_ADMINPASSWORD=password ^
-      -e ME_CONFIG_MONGODB_SERVER=mongodb ^
-      --net mongo-network ^
-      --name mongo-express ^
-      mongo-express
-
-### Step 3: Docker Compose
-
-**Syntax**
-
-```yaml
-version: "3" # optional
-services:
-  mongodb: # container name
-    image: mongo # image name. version can also be specified.
-    ports:
-      - 27017:27017
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=password
-    volumes:
-      - mongo-data:/data/db
-  mongo-express:
-    image: mongo-express
-    restart: always # fixes MongoNetworkError when mongodb is not ready when mongo-express starts
-    ports:
-      - 8080:8081
-    environment:
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=password
-      - ME_CONFIG_MONGODB_SERVER=mongodb
-volumes:
-  mongo-data:
-    driver: local
-```
-
-Docker Compose takes care of creating a common network. Hence there is no need to specify the network name.
-
-**Running Docker Compose**
-
-    docker-compose <up | down>
-
-- Options:
-  - `-f`: Specify docker-compose.yaml file path.
-  - `-d`: Detached mode.
-
-Alternative for Docker run commands. Starts or stops containers.
-
-### Step: 4 Building Docker Image w/ Dockerfile
+### [To Remove] Dockerfile <!-- omit in toc -->
 
 ```dockerfile
 # using prebuilt Node image from Docker Hub (ie. install Node)
@@ -229,27 +98,121 @@ docker build -t <image_name>:<tag> <Dockerfile_directory>
 docker run my-app:1.0
 ```
 
----
+## Docker Command Cheat Sheet
 
-### Dependencies
+Collection of common Docker commands.
 
-- [Docker](https://www.docker.com/products/docker-desktop)
+### Info & Stats
 
-### Execution
+**docker images**: Lists all local images.
 
-1. Start MongoDB & Mongo-Express.
-   - `docker-compose -f docker-compose.yaml up`
-2. Navigate to `localhost:8080`.
-3. Create new database `my-db`.
-4. Create new collection `users`.
-5. Start Node server in `/app`.
-   - `npm install`\
-     `node server.js`
-6. Access NodeJS web app in `localhost:3000`.
-7. Build Docker image.
-   - `docker build -t my-app:1.0 .`
+    docker images
 
-### Tips
+**docker ps**: Process status. List running containers.
+
+    docker ps [-a]
+
+- Options:
+  - `-a`: Show all containers.
+
+### Run
+
+**docker run**: Run a new container from an image.
+
+    docker run [OPTIONS] <image>
+
+- Options:
+  - `-d`: Detached mode. Run the container in background.
+  - `-e <env_var>`: Set environment variables.
+  - `--env-file <file_path>`: Load environment variables from a file.
+  - `-it`: Launches an interactive terminal. Allows commands to be run inside of the container.
+  - `--name <name>`: Assign a name to the container.
+  - `--net <network_name>`: Connects the container to a network.
+  - `-p <host_port>:<container_port>`: Publish port. Maps container port to host port & exposes host port externally.
+
+### Images
+
+**docker build**: Build an image from a Dockerfile. Refer to [Dockerfile Cheat Sheet](#dockerfile-cheat-sheet) for more.
+
+    docker build [OPTIONS] <path>
+
+- Parameters:
+  - `path`: Path of Dockerfile. Use `.` if Dockerfile is named `Dockerfile` & is in executed directory.
+- Options:
+  - `-t`: Name & tag an image in the format of `<name>:<tag>`.
+
+**docker rmi**: Removes image.
+
+    docker rmi [OPTIONS] <image>
+
+- Options:
+  - `-f`: Force remove.
+
+### Containers
+
+**docker start**: Start 1 or more stopped containers.
+
+    docker start <container> [<container> . . .]
+
+**docker stop**: Stop 1 or more running containers.
+
+    docker stop <container> [<container> . . .]
+
+**docker rm**: Removes 1 or more containers.
+
+    docker rm [OPTIONS] <container> [<container> . . .]
+
+- Options
+  - `-f`: Force remove.
+
+### Debugging
+
+**docker logs**: Prints the logs of a container.
+
+    docker logs [OPTIONS] <container>
+
+- Options:
+  - `-f`: Follow log output. Continues to print new output from container.
+  - `-t`: Show timestamps.
+
+**docker exec**: Run commands in a running container. Use `docker exec -it <container> /bin/bash` to enter the terminal of the running container.
+
+    docker exec [OPTIONS] <container> <command>
+
+- Parameters:
+  - `command`: Command to be executed.
+- Options:
+  - `-it`: Launches an interactive terminal.
+
+### Image Transfer
+
+**docker pull**: Pulls an image from a registry.
+
+    docker pull <image>[:<tag>]
+
+- Parameters:
+  - `image`: Image name. Defaults to Docker Hub as remote registry. Use `<remote_url>/<image>` for other remote registries.
+
+**docker push**: Push an image to a registry.
+
+    docker push <image>[:<tag>]
+
+- Parameters:
+  - `image`: Image name. See **docker pull** in [Image Transfer](#image-transfer) for more details.
+
+### Cleanup
+
+**docker system prune**: Remove dangling images.
+
+    docker system prune [OPTIONS]
+
+- Options:
+  - `-a`: Remove all unused images.
+  - `-f`: Force remove.
+
+## Dockerfile Cheat Sheet
+
+## Tips
 
 1. Use official Docker images as base image.
    - Instead of:
