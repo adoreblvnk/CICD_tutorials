@@ -26,78 +26,6 @@
 
 Docker cheat sheets.
 
-### [To Remove] Dockerfile <!-- omit in toc -->
-
-```dockerfile
-# using prebuilt Node image from Docker Hub (ie. install Node)
-FROM node:13-alpine
-
-ENV MONGO_DB_USERNAME=admin MONGO_DB_PWD=password
-
-RUN mkdir -p /home/app
-
-COPY ./app /home/app
-
-WORKDIR /home/app
-
-RUN npm install
-
-CMD ["node", "server.js"]
-```
-
-**FROM**
-
-    FROM <image>:<tag> [AS <name>]
-
-Sets the base image.
-
-- Options:
-  - `AS [<name>]`: Sets alias for the image.
-
-**ENV**
-
-    ENV <name>=<value>
-
-Alternative to defining environment variables in `docker-compose.yaml`. Best practice is to <mark>use `docker-compose.yaml` for environmental variables because if something changes, it can be overridden by `docker-compose.yaml`</mark> instead of rebuilding Dockerfile.
-
-**RUN**
-
-    RUN <command>
-
-Executes any Linux command. Commands are run <mark>inside</mark> the container.
-
-**COPY**
-
-    COPY <source> <destination>
-
-Copies files from host to container.
-
-**WORKDIR**
-
-    WORKDIR <path>
-
-Sets the working directory in the container. Can be used multiple times.
-
-**CMD**
-
-    CMD <command>
-
-Executes an entrypoint command.
-
-_NOTE: Dockerfile has to be rebuilt whenever Dockerfile is modified._
-
-```
-docker build -t <image_name>:<tag> <Dockerfile_directory>
-```
-
-- eg `docker build -t my-app:1.0 .`
-  - tells Docker to build my-app with tag 1.0 with Dockerfile located in current dir.
-- `t` is an optional parameter to add a tag to the image.
-
-```
-docker run my-app:1.0
-```
-
 ## Docker Command Cheat Sheet
 
 Collection of common Docker commands.
@@ -211,6 +139,29 @@ Collection of common Docker commands.
   - `-f`: Force remove.
 
 ## Dockerfile Cheat Sheet
+
+**FROM**: Sets base image.
+
+    FROM <image>:<tag> [AS <name>]
+
+**RUN**: Runs shell command by default.
+
+    RUN <command>
+
+**COPY**: Copies from host path to container path
+
+    COPY <host_path> <container_path>
+
+**WORKDIR**: Sets working directory in the container for `RUN`, `CMD`, `ENTRYPOINT`, `COPY`, & `ADD`.
+
+    WORKDIR <path>
+
+**CMD**: The default command to be executed for a container at the end. There can only be 1 `CMD` in a Dockerfile.
+
+```dockerfile
+# NOTE: the outer brackets are required.
+CMD ["<executable>", ["<command>" . . .]]
+```
 
 ## Tips
 
