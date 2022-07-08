@@ -23,22 +23,15 @@ Learning Kubernetes from [Kubernetes Tutorial for Beginners](https://youtu.be/X4
 
 Watch videos 1-4, 6 [Kubernetes Essentials from Google Cloud](https://www.youtube.com/playlist?list=PLIivdWyY5sqLmnGdKSdQIXq2sd_1bWSnx) playlist for a quick introduction to Kubernetes.
 
-You should get an overview of the following:
-
-- Problems Kubernetes Solves
-- Pods & Containers
-
 ## Main K8s Components
 
-**Pod**
+<img src="assets/k8s_architecture.png" width="">
 
-![](assets/pods_containers.png)
+**Pod**
 
 A Pod is a collection of multiple containers (eg 1 or more apps that are run together). It's an abstraction over container(s).
 
 **Node**
-
-![](assets/node.png)
 
 A Node is a virtual or physical machine that workloads are run on.
 
@@ -49,8 +42,6 @@ Nodes are comprised of:
 3. **Kube-Proxy**: Handles networking.
 
 **Control Plane (Master Nodes)**
-
-![](assets/control_plane.png)
 
 Kubernetes manages the cluster via the Control Plane via exposing the API.
 
@@ -64,8 +55,6 @@ Components in the Control Plane:
 
 **Service**
 
-![](assets/service.png)
-
 Creates an endpoint that can be used to access Pods. Each Pod has its own IP address, & the Service automatically updates its list of endpoints to target the Pod. If there are multiple Nodes, the Service load balances incoming traffic.
 
 Types of Services:
@@ -74,8 +63,6 @@ Types of Services:
 - **Internal Service**: Endpoints are accessible only inside K8s.
 
 **Deployment**
-
-![](assets/deployment.png)
 
 Abstraction over Pods that manages a Pod's lifecycle (eg controls amount of replicas, tells K8s to schedule another replica if the the current Node crashes). Pods are typically configured via Deployments, so Pods are not directly interacted with.
 
