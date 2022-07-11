@@ -69,9 +69,7 @@ Cheat sheets & concise references for Kubernetes, an open-source container orche
 
 ## Kubectl Commands
 
-**get**
-
-List 1 or more resources.
+**get**:List 1 or more resources.
 
     kubectl get <type> <name> <flags>
 
@@ -86,15 +84,11 @@ List 1 or more resources.
 
 _TIP: Use `grep` for additional filters._
 
-**api-resources**
-
-List all available API resources & shortnames.
+**api-resources**: List all available API resources & shortnames.
 
     kubectl api-resources
 
-**delete**
-
-Deletes 1 or more resources.
+**delete**: Deletes 1 or more resources.
 
     kubectl delete <type> <name> <flags>
 
@@ -108,9 +102,7 @@ Deletes 1 or more resources.
     - `-o <format>`: Output format (eg `yaml`, `json`, `wide`).
     - `-A`: Select all resources from all namespaces.
 
-**apply**
-
-Apply a configuration to a resource by file (eg `yaml` files). Creates resources if they don't exist, updates resources if they do. This is the recommended way of managin K8s applications.
+**apply**: Apply a configuration to a resource by file (eg `yaml` files). Creates resources if they don't exist, updates resources if they do. This is the recommended way of managin K8s applications.
 
       kubectl apply -f <file_name>
 
@@ -119,15 +111,11 @@ Apply a configuration to a resource by file (eg `yaml` files). Creates resources
 
 ### Debugging Commands
 
-**explain**
-
-Get documentation of the resource & its fields.
+**explain**: Get documentation of the resource & its fields.
 
     kubectl explain <resource>
 
-**logs**
-
-Logs events from containers & stores inside a pod.
+**logs**: Logs events from containers & stores inside a pod.
 
     kubectl logs <pod_name> <flags>
 
@@ -135,15 +123,11 @@ Logs events from containers & stores inside a pod.
   - `flags`:
     - `-p`: Print logs for previous instance of the container.
 
-**describe**
-
-Check resource state & events. Commonly used for pods.
+**describe**: Check resource state & events. Commonly used for pods.
 
     kubectl describe <type> <name>
 
-**exec -it**
-
-Access CLI of a container.
+**exec -it**: Access CLI of a container.
 
     kubectl exec -it <pod_name> <shell>
 

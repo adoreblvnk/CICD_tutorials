@@ -64,7 +64,7 @@ Collection of common Docker commands.
 
     docker build [OPTIONS] <path>
 
-- Parameters:
+- Required:
   - `path`: Path of Dockerfile. Use `.` if Dockerfile is named `Dockerfile` & is in executed directory.
 - Options:
   - `-t`: Name & tag an image in the format of `<name>:<tag>`.
@@ -107,7 +107,7 @@ Collection of common Docker commands.
 
     docker exec [OPTIONS] <container> <command>
 
-- Parameters:
+- Required:
   - `command`: Command to be executed.
 - Options:
   - `-it`: Launches an interactive terminal.
