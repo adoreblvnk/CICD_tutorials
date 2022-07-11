@@ -6,8 +6,10 @@ Learning Kubernetes from [Kubernetes Tutorial for Beginners](https://youtu.be/X4
 
 ## Table of Contents <!-- omit in toc -->
 
-- [Intro](#intro)
-- [Main K8s Components](#main-k8s-components)
+- [About](#about)
+- [Basic K8s Architecture](#basic-k8s-architecture)
+  - [Control Plane](#control-plane)
+  - [Data Plane](#data-plane)
 - [Kubectl Commands](#kubectl-commands)
   - [Debugging Commands](#debugging-commands)
 - [minikube](#minikube)
@@ -19,81 +21,51 @@ Learning Kubernetes from [Kubernetes Tutorial for Beginners](https://youtu.be/X4
   - [StatefulSet](#statefulset)
 - [Tips](#tips)
 
-## Intro
+## About
 
-Watch videos 1-4, 6 [Kubernetes Essentials from Google Cloud](https://www.youtube.com/playlist?list=PLIivdWyY5sqLmnGdKSdQIXq2sd_1bWSnx) playlist for a quick introduction to Kubernetes.
+Cheat sheets & concise references for Kubernetes, an open-source container orchestration system.
 
-## Main K8s Components
+## Basic K8s Architecture
 
-<img src="assets/k8s_architecture.png" width="">
+<img src="assets/k8s_architecture.png" width="1500">
 
-**Pod**
+### Control Plane
 
-A Pod is a collection of multiple containers (eg 1 or more apps that are run together). It's an abstraction over container(s).
+**API Server**: Exposes K8s API & is the front end for K8s control plane.
 
-**Node**
+**etcd**: Highly-available key value store for all cluster data.
 
-A Node is a virtual or physical machine that workloads are run on.
+**Scheduler**: Schedules a Pod to a Node for the Pod to run on. The process relies on multiple factors (eg resource requirements, policy constraints, etc).
 
-Nodes are comprised of:
+**Controller Manager**: Attempts to ensure that current state matches desired state.
 
-1. **Container Runtime**: Runs containers.
-2. **Kubelet**: Makes sure everything is running.
-3. **Kube-Proxy**: Handles networking.
+**ConfigMap**: Stores non-sensitive configuration for other resources to use.
 
-**Control Plane (Master Nodes)**
+**Secret**: Stores sensitive data for other resources to use.
 
-Kubernetes manages the cluster via the Control Plane via exposing the API.
+### Data Plane
 
-Components in the Control Plane:
+**kubelet**: Ensures that containers are running in a Pod.
 
-1. **API Server**: Handles data validation & configuration of API objects.
-2. **etcd**: Key-value store for important cluster data.
-3. **Scheduler**: Makes decisions where Pods are run (eg looks at available resources & schedules a Pod to a Node that can handle it).
-4. **Controller Manager**: Handles core K8s logic (eg lifecycle management, which makes sure all resources are working correctly).
-5. **Cloud Controller Manager**: Lets K8s link to cloud providers.
+**kube-proxy**: Network proxy on each Node that exposes Pods as a network service.
 
-**Service**
+**Pod**: Smallest deployable unit in K8s. Group of 1 or more containers that run together.
 
-Creates an endpoint that can be used to access Pods. Each Pod has its own IP address, & the Service automatically updates its list of endpoints to target the Pod. If there are multiple Nodes, the Service load balances incoming traffic.
+**Node**: Physical / virtual machines that run K8s workloads.
 
-Types of Services:
+**ReplicaSet**: Maintains a stable set of replica Pods.
 
-- **External Service**: Endpoints are accessible outside K8s.
-- **Internal Service**: Endpoints are accessible only inside K8s.
+**Deployment**: Abstraction over Pods & ReplicaSets. Changes Pod & ReplicaSet to their desired state.
 
-**Deployment**
+**Service**: Abstraction for network service for Pods. Assigns each Pod their own IP addresses & a DNS name for a set of Pods. Load-balances network traffic. 
 
-Abstraction over Pods that manages a Pod's lifecycle (eg controls amount of replicas, tells K8s to schedule another replica if the the current Node crashes). Pods are typically configured via Deployments, so Pods are not directly interacted with.
+**Ingress**: Manages  & exposes external network traffic to Services.
 
-- For <mark>stateless apps</mark>.
+**Namespace**: Isolates a group of resources within a cluster. The resources must be a namespaced object (eg Deployments, Services, etc).
 
-**StatefulSet**
+**PVC (Persistent Volume Claim)**: Request for storage (PV) by a Pod.
 
-- Like Deployment but for <mark>stateful databases</mark>.
-
-**ConfigMap**: Stores non-confidential data (key-value pairs). Stored in etcd.
-
-**Secret**: Stores small amount of sensitive data (eg passwords, tokens). Stored in etcd.
-
-**Volumes**: Storage for data persistence. K8s doesn't manage data persistence.
-
-**Namespaces**
-
-Isolates groups of resources within a cluster. Provides logical separation.
-
-Kubernetes provides 4 default Namespaces:
-
-1. **kube-system**: system processes.
-2. **kube-public**: publicly accessible data (no authentication required).
-3. **kube-node-lease**: determines availability of a node.
-4. **default**
-
-Namespace Characteristics:
-
-- Resources cannot be accessed from another Namespace (eg ConfigMap / Secret).
-- Services are <mark>shared</mark> across Namespaces.
-- Volumes & Nodes are created outside of Namespaces.
+**PV (Persistent Volume)**: Local (K8s) or remote storage, of which the latter is preferentially used.
 
 ## Kubectl Commands
 
