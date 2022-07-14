@@ -8,21 +8,18 @@
 <details>
 <summary>Table of Contents</summary>
 
-- [About](#about)
 - [Docker Command Cheat Sheet](#docker-command-cheat-sheet)
   - [Info & Stats](#info--stats)
   - [Run](#run)
   - [Images](#images)
   - [Containers](#containers)
   - [Debugging](#debugging)
-  - [Image Transfer](#image-transfer)
   - [Cleanup](#cleanup)
 - [Dockerfile Cheat Sheet](#dockerfile-cheat-sheet)
 - [Tips](#tips)
-- [Credits](#credits)
 </details>
 
-## About
+## About <!-- omit in toc -->
 
 Docker cheat sheets.
 
@@ -76,6 +73,20 @@ Collection of common Docker commands.
 - Options:
   - `-f`: Force remove.
 
+**docker pull**: Pulls an image from a registry.
+
+    docker pull <image>[:<tag>]
+
+- Parameters:
+  - `image`: Image name. Defaults to Docker Hub as remote registry. Use `<remote_url>/<image>` for other remote registries.
+
+**docker push**: Push an image to a registry.
+
+    docker push <image>[:<tag>]
+
+- Parameters:
+  - `image`: Image name. See **docker pull** in [Image Transfer](#image-transfer) for more details.
+
 ### Containers
 
 **docker start**: Start 1 or more stopped containers.
@@ -111,22 +122,6 @@ Collection of common Docker commands.
   - `command`: Command to be executed.
 - Options:
   - `-it`: Launches an interactive terminal.
-
-### Image Transfer
-
-**docker pull**: Pulls an image from a registry.
-
-    docker pull <image>[:<tag>]
-
-- Parameters:
-  - `image`: Image name. Defaults to Docker Hub as remote registry. Use `<remote_url>/<image>` for other remote registries.
-
-**docker push**: Push an image to a registry.
-
-    docker push <image>[:<tag>]
-
-- Parameters:
-  - `image`: Image name. See **docker pull** in [Image Transfer](#image-transfer) for more details.
 
 ### Cleanup
 
@@ -258,7 +253,7 @@ CMD ["<executable>", ["<command>" . . .]]
 
 Sauce: [Docker Best Practices](https://youtu.be/8vXoMqWgbQQ)
 
-## Credits
+## Credits <!-- omit in toc -->
 
 - [Techworld with Nana](https://twitter.com/Njuchi_)
 - blvnk

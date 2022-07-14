@@ -4,7 +4,8 @@ Kubernetes: Open source container orchestration tool.
 
 Learning Kubernetes from [Kubernetes Tutorial for Beginners](https://youtu.be/X48VuDVv0do). Special thanks to Nanuchi for creating the course.
 
-## Table of Contents <!-- omit in toc -->
+<details>
+<summary>Table of Contents</summary>
 
 - [Basic K8s Architecture](#basic-k8s-architecture)
   - [Control Plane](#control-plane)
@@ -14,6 +15,7 @@ Learning Kubernetes from [Kubernetes Tutorial for Beginners](https://youtu.be/X4
   - [App Management](#app-management)
   - [Debugging](#debugging)
 - [Tips](#tips)
+</details>
 
 ## About <!-- omit in toc -->
 

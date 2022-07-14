@@ -6,31 +6,33 @@
 
 ## About
 
-A list of tutorials for CI/CD tools for DevOps.
+A list of tutorials / cheat sheets for CI/CD tools for DevOps.
 
 ## Content
 
 It is recommended to start with Docker, then Kubernetes.
 
-### [Docker](docker%20tutorial/README.md) (w/ Practical)
+### [Docker](docker%20tutorial/README.md)
 
-- Learn basic Docker commands.
-- Deploy MongoDB with MongoExpress frontend.
-- Learn how to create & configure DockerCompose & Dockerfiles.
-- Bonus: Docker tips.
+- Docker Command Cheat Sheet
+  - Info & Stats
+  - Run
+  - Images
+  - Containers
+  - Debugging
+  - Cleanup
+- Dockerfile Cheat Sheet
+- Tips
 
-### [Kubernetes](kubernetes%20tutorial/README.md) (w/ Practical)
+### [Kubernetes](kubernetes%20tutorial/README.md)
 
-- Main K8s Components
+- Basic K8s Architecture
+  - Control Plane
+  - Data Plane
 - Kubectl Commands
-- Debugging Commands
-- minikube
-- [Practical] Deploying MongoDB & MongoExpress
-- Extra
-  - K8s Ingress
-  - Helm
-  - K8s Volumes
-  - StatefulSet
+  - Basics
+  - App Management
+  - Debugging
 - Tips
 
 ### [Istio](istio%20tutorial/README.md) (w/ Practical)
