@@ -11,14 +11,10 @@ Learning Kubernetes from [Kubernetes Tutorial for Beginners](https://youtu.be/X4
   - [Control Plane](#control-plane)
   - [Data Plane](#data-plane)
 - [Kubectl Commands](#kubectl-commands)
-  - [Debugging Commands](#debugging-commands)
-- [minikube](#minikube)
-- [[Practical] Deploying MongoDB & MongoExpress](#practical-deploying-mongodb--mongoexpress)
+  - [Basics](#basics)
+  - [App Management](#app-management)
+  - [Debugging](#debugging)
 - [Extras](#extras)
-  - [K8s Ingress](#k8s-ingress)
-  - [Helm](#helm)
-  - [K8s Volumes](#k8s-volumes)
-  - [StatefulSet](#statefulset)
 - [Tips](#tips)
 
 ## About
@@ -69,24 +65,15 @@ Cheat sheets & concise references for Kubernetes, an open-source container orche
 
 ## Kubectl Commands
 
-**get**:List 1 or more resources.
+### Basics
 
-    kubectl get <type> <name> <flags>
+**api-resources**: List all available API resources in the cluster.
 
-- Required:
-  - `type`: Type of resource. See [K8s Resource Shortnames](#k8s-resource-shortnames) for resource type examples.
-- Options:
-  - `name`: Name of resource of relevant resource type.
+    kubectl api-resources <flags>
+
+- Optional:
   - `flags`:
-    - `-o <format>`: Output format (eg `yaml`, `json`, `wide`).
-    - `-l <label>`: Selector. Filter by label.
-    - `-A`: Select all resources from all namespaces.
-
-_TIP: Use `grep` for additional filters._
-
-**api-resources**: List all available API resources & shortnames.
-
-    kubectl api-resources
+    - `--namespaced false`: If false, returns non-namespaced resources. Defaults to true.
 
 **delete**: Deletes 1 or more resources.
 
@@ -94,13 +81,28 @@ _TIP: Use `grep` for additional filters._
 
 - Required:
   - `type`: Type of resource.
-- Options:
+- Optional:
   - `name`: Name of resource of relevant resource type.
   - `flags`:
     - `-f <file_name>`: Filename of resource to delete.
     - `-grace-period <seconds>`: Time to wait before deleting resources. Set to 1 for immediate deletion.
-    - `-o <format>`: Output format (eg `yaml`, `json`, `wide`).
+    - `-o <format>`: Output format (eg `yaml`, `wide`).
     - `-A`: Select all resources from all namespaces.
+
+**get**: List 1 or more resources.
+
+    kubectl get <type> <name> <flags>
+
+- Required:
+  - `type`: Type of resource. See [K8s Resource Shortnames](#k8s-resource-shortnames) for resource type examples.
+- Optional:
+  - `name`: Name of resource of relevant resource type.
+  - `flags`:
+    - `-o <format>`: Output format (eg `yaml`, `wide`).
+    - `-l <label>`: Label selector. Filters resources by labels.
+    - `-A`: Select all resources from all namespaces.
+
+### App Management
 
 **apply**: Apply a configuration to a resource by file (eg `yaml` files). Creates resources if they don't exist, updates resources if they do. This is the recommended way of managin K8s applications.
 
@@ -109,19 +111,7 @@ _TIP: Use `grep` for additional filters._
 - Required:
   - `file_name`: Filename of resource to apply. Can be stacked (eg `-f <file_name> -f <file_name_1>`).
 
-### Debugging Commands
-
-**explain**: Get documentation of the resource & its fields.
-
-    kubectl explain <resource>
-
-**logs**: Logs events from containers & stores inside a pod.
-
-    kubectl logs <pod_name> <flags>
-
-- Options:
-  - `flags`:
-    - `-p`: Print logs for previous instance of the container.
+### Debugging
 
 **describe**: Check resource state & events. Commonly used for pods.
 
@@ -131,10 +121,18 @@ _TIP: Use `grep` for additional filters._
 
     kubectl exec -it <pod_name> <shell>
 
-- Options:
+- Optional:
   - `shell`: Shell to run (eg `/bin/bash`).
 
-**K8s Config File**
+**logs**: Logs events from containers & stores inside a pod.
+
+    kubectl logs <pod_name> <flags>
+
+- Optional:
+  - `flags`:
+    - `-p true`: Print logs for previous instance of the container.
+
+<!-- **K8s Config File**
 
 <mark>3 parts</mark> of a Config File
 
@@ -230,11 +228,11 @@ Browser → External Service (Mongo Express) → Pod (Mongo Express) → Interna
 11. Assign External Service a Public IP Address
     ```
     minikube service mongo-express-service
-    ```
+    ``` -->
 
 ## Extras
 
-### K8s Ingress
+<!-- ### K8s Ingress
 
 **Without Ingress**: External Request → External Service → Pod
 
@@ -386,7 +384,7 @@ Only Master Pod can read & write, & worker Pods can <mark>only</mark> read. Work
 **StatefulSet Pod Characteristics**
 
 1. Predictable Pod Name
-2. Fixed Individual DNS Name
+2. Fixed Individual DNS Name -->
 
 ## Tips
 
