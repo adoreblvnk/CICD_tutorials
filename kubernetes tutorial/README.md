@@ -6,7 +6,6 @@ Learning Kubernetes from [Kubernetes Tutorial for Beginners](https://youtu.be/X4
 
 ## Table of Contents <!-- omit in toc -->
 
-- [About](#about)
 - [Basic K8s Architecture](#basic-k8s-architecture)
   - [Control Plane](#control-plane)
   - [Data Plane](#data-plane)
@@ -14,10 +13,9 @@ Learning Kubernetes from [Kubernetes Tutorial for Beginners](https://youtu.be/X4
   - [Basics](#basics)
   - [App Management](#app-management)
   - [Debugging](#debugging)
-- [Extras](#extras)
 - [Tips](#tips)
 
-## About
+## About <!-- omit in toc -->
 
 Cheat sheets & concise references for Kubernetes, an open-source container orchestration system.
 
@@ -230,7 +228,7 @@ Browser → External Service (Mongo Express) → Pod (Mongo Express) → Interna
     minikube service mongo-express-service
     ``` -->
 
-## Extras
+## Extras <!-- omit in toc -->
 
 <!-- ### K8s Ingress
 
